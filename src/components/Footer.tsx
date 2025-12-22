@@ -13,9 +13,16 @@ const services = [
 
 const quickLinks = [
   { name: "About Us", href: "/#about" },
-  { name: "Our Values", href: "/#values" },
-  { name: "Customer Portal", href: "#" },
+  { name: "News", href: "/news" },
+  { name: "Careers", href: "/careers" },
   { name: "Contact", href: "/#contact" },
+];
+
+const resources = [
+  { name: "All Resources", href: "/resources" },
+  { name: "Logos", href: "/resources/logos" },
+  { name: "Brand Guide", href: "/resources/brand-guide" },
+  { name: "Brochures", href: "/resources/brochures" },
 ];
 
 export default function Footer() {
@@ -23,7 +30,7 @@ export default function Footer() {
     <footer className="bg-steel-950 border-t border-steel-800">
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Company Info */}
           <div className="lg:col-span-1">
             <Link href="/" className="inline-block mb-6">
@@ -77,6 +84,25 @@ export default function Footer() {
                     className="text-steel-400 hover:text-accent-400 transition-colors text-sm"
                   >
                     {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Resources */}
+          <div>
+            <h3 className="text-steel-100 font-semibold mb-6 uppercase tracking-wider text-sm">
+              Resources
+            </h3>
+            <ul className="space-y-3">
+              {resources.map((resource) => (
+                <li key={resource.name}>
+                  <Link
+                    href={resource.href}
+                    className="text-steel-400 hover:text-accent-400 transition-colors text-sm"
+                  >
+                    {resource.name}
                   </Link>
                 </li>
               ))}

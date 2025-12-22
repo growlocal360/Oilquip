@@ -14,10 +14,18 @@ const services = [
   { name: "Repairs & Upgrades", href: "/services/repairs-upgrades" },
 ];
 
+const resources = [
+  { name: "All Resources", href: "/resources" },
+  { name: "Logos", href: "/resources/logos" },
+  { name: "Brand Guide", href: "/resources/brand-guide" },
+  { name: "Brochures", href: "/resources/brochures" },
+];
+
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [resourcesOpen, setResourcesOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -108,11 +116,60 @@ export default function Navigation() {
             </div>
 
             <Link
-              href="/#values"
+              href="/news"
               className="px-4 py-2 text-steel-300 hover:text-accent-400 transition-colors font-medium"
             >
-              Values
+              News
             </Link>
+            <Link
+              href="/careers"
+              className="px-4 py-2 text-steel-300 hover:text-accent-400 transition-colors font-medium"
+            >
+              Careers
+            </Link>
+
+            {/* Resources Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setResourcesOpen(true)}
+              onMouseLeave={() => setResourcesOpen(false)}
+            >
+              <button
+                className="flex items-center px-4 py-2 text-steel-300 hover:text-accent-400 transition-colors font-medium"
+              >
+                Resources
+                <ChevronDown className={cn(
+                  "ml-1 h-4 w-4 transition-transform",
+                  resourcesOpen && "rotate-180"
+                )} />
+              </button>
+
+              <AnimatePresence>
+                {resourcesOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full left-0 mt-2 w-48 bg-steel-900 border border-steel-700 rounded-lg shadow-xl overflow-hidden"
+                  >
+                    {resources.map((resource, index) => (
+                      <Link
+                        key={resource.name}
+                        href={resource.href}
+                        className={cn(
+                          "block px-4 py-3 text-steel-300 hover:text-white hover:bg-steel-800 transition-colors",
+                          index !== resources.length - 1 && "border-b border-steel-800"
+                        )}
+                      >
+                        {resource.name}
+                      </Link>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
             <Link
               href="/#contact"
               className="px-4 py-2 text-steel-300 hover:text-accent-400 transition-colors font-medium"
@@ -188,12 +245,34 @@ export default function Navigation() {
               ))}
 
               <Link
-                href="/#values"
+                href="/news"
                 onClick={() => setIsOpen(false)}
                 className="block px-4 py-3 text-steel-300 hover:text-white hover:bg-steel-900 rounded-lg transition-colors"
               >
-                Values
+                News
               </Link>
+              <Link
+                href="/careers"
+                onClick={() => setIsOpen(false)}
+                className="block px-4 py-3 text-steel-300 hover:text-white hover:bg-steel-900 rounded-lg transition-colors"
+              >
+                Careers
+              </Link>
+
+              <div className="px-4 py-2 text-steel-500 text-sm uppercase tracking-wider">
+                Resources
+              </div>
+              {resources.map((resource) => (
+                <Link
+                  key={resource.name}
+                  href={resource.href}
+                  onClick={() => setIsOpen(false)}
+                  className="block px-6 py-3 text-steel-300 hover:text-white hover:bg-steel-900 rounded-lg transition-colors"
+                >
+                  {resource.name}
+                </Link>
+              ))}
+
               <Link
                 href="/#contact"
                 onClick={() => setIsOpen(false)}
