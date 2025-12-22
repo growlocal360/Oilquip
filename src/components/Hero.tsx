@@ -18,15 +18,15 @@ export default function Hero() {
           priority
           quality={90}
         />
-        {/* Dark overlay for text legibility */}
-        <div className="absolute inset-0 bg-steel-950/70" />
-        {/* Gradient overlay for depth */}
-        <div className="absolute inset-0 bg-gradient-to-r from-steel-950/90 via-steel-950/60 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-steel-950 via-transparent to-steel-950/50" />
+        {/* Lightened overlay for text legibility */}
+        <div className="absolute inset-0 bg-steel-950/50" />
+        {/* Gradient overlay for depth - lighter on right to show more image */}
+        <div className="absolute inset-0 bg-gradient-to-r from-steel-950/70 via-steel-950/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-steel-950 via-transparent to-steel-950/30" />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 lg:pt-40 lg:pb-28">
+      {/* Content - Left aligned */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 lg:pt-40 lg:pb-28">
         <div className="max-w-3xl">
           {/* Badge */}
           <motion.div
