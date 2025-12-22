@@ -21,7 +21,7 @@ export default function About() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8 }}
           >
-            <span className="inline-block text-safety-500 font-semibold uppercase tracking-wider text-sm mb-4">
+            <span className="inline-block text-accent-500 font-semibold uppercase tracking-wider text-sm mb-4">
               The Oilquip Story
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-steel-100 mb-6 leading-tight">
@@ -31,7 +31,7 @@ export default function About() {
             <div className="space-y-6 text-steel-300 text-lg leading-relaxed">
               <p>
                 We are a family business driven by a{" "}
-                <span className="text-safety-400 font-semibold">
+                <span className="text-accent-400 font-semibold">
                   &ldquo;Cajun spirit&rdquo;
                 </span>{" "}
                 that sees what others can&apos;t. We are not just in the fluid
@@ -52,15 +52,15 @@ export default function About() {
             <div className="mt-10 flex items-center space-x-8">
               <div className="flex items-center space-x-3">
                 <div className="w-12 h-12 bg-steel-800 border border-steel-700 rounded-lg flex items-center justify-center">
-                  <span className="text-safety-500 font-bold">60</span>
+                  <span className="text-accent-500 font-bold">60</span>
                 </div>
                 <span className="text-steel-400 text-sm">1960</span>
               </div>
-              <div className="flex-1 h-px bg-gradient-to-r from-steel-700 via-safety-500/50 to-steel-700" />
+              <div className="flex-1 h-px bg-gradient-to-r from-steel-700 via-accent-500/50 to-steel-700" />
               <div className="flex items-center space-x-3">
                 <span className="text-steel-400 text-sm">Present</span>
-                <div className="w-12 h-12 bg-safety-500/10 border border-safety-500 rounded-lg flex items-center justify-center">
-                  <span className="text-safety-500 font-bold">Now</span>
+                <div className="w-12 h-12 bg-accent-500/10 border border-accent-500 rounded-lg flex items-center justify-center">
+                  <span className="text-accent-500 font-bold">Now</span>
                 </div>
               </div>
             </div>
@@ -87,7 +87,7 @@ export default function About() {
 
               {/* Central content */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="bg-steel-800 border-2 border-safety-500/30 rounded-2xl p-8 text-center max-w-xs">
+                <div className="bg-steel-800 border-2 border-accent-500/30 rounded-2xl p-8 text-center max-w-xs">
                   <div className="text-6xl font-bold text-gradient mb-2">65</div>
                   <div className="text-steel-300 text-lg">
                     Years of Excellence
@@ -122,11 +122,11 @@ export default function About() {
               </motion.div>
 
               <motion.div
-                className="absolute top-1/2 -left-4 bg-safety-500/10 border border-safety-500/30 rounded-lg px-4 py-2"
+                className="absolute top-1/2 -left-4 bg-accent-500/10 border border-accent-500/30 rounded-lg px-4 py-2"
                 animate={{ x: [0, -10, 0] }}
                 transition={{ duration: 6, repeat: Infinity }}
               >
-                <span className="text-safety-400 text-sm font-medium">
+                <span className="text-accent-400 text-sm font-medium">
                   Cajun Spirit
                 </span>
               </motion.div>

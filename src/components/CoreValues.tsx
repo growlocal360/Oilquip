@@ -18,42 +18,42 @@ const values = [
     title: "Customer Focused",
     description:
       "It's not about us, never has been. We build relationships on old-school trust.",
-    color: "safety",
+    color: "accent",
   },
   {
     icon: RefreshCw,
     title: "Flexibility",
     description:
       "We bend so you don't break. Adaptable and responsive to unique needs.",
-    color: "oil",
+    color: "cyan",
   },
   {
     icon: Crown,
     title: "Competency Is King",
     description:
       "Being good is not good enough. We are obsessed with genuine mastery.",
-    color: "safety",
+    color: "accent",
   },
   {
     icon: Briefcase,
     title: "It's My Job",
     description:
       "Full ownership. We treat your challenges as our own.",
-    color: "oil",
+    color: "cyan",
   },
   {
     icon: Shield,
     title: "Trust is a Must",
     description:
       "The bedrock of our relationship. Earned through honesty and transparency.",
-    color: "safety",
+    color: "accent",
   },
   {
     icon: Smile,
     title: "Work Should Be Enjoyable",
     description:
       "Loving what you do and who you do it with.",
-    color: "oil",
+    color: "cyan",
   },
 ];
 
@@ -76,7 +76,7 @@ export default function CoreValues() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="inline-block text-safety-500 font-semibold uppercase tracking-wider text-sm mb-4">
+          <span className="inline-block text-accent-500 font-semibold uppercase tracking-wider text-sm mb-4">
             What Drives Us
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-steel-100 mb-6">
@@ -94,22 +94,22 @@ export default function CoreValues() {
             const Icon = value.icon;
             const isActive = activeIndex === index;
             const colorClasses =
-              value.color === "safety"
+              value.color === "accent"
                 ? {
-                    bg: "bg-safety-500/10",
-                    border: "border-safety-500/30",
-                    hoverBorder: "hover:border-safety-500",
-                    iconBg: "bg-safety-500/20",
-                    iconColor: "text-safety-500",
-                    activeBg: "bg-safety-500/5",
+                    bg: "bg-accent-500/10",
+                    border: "border-accent-500/30",
+                    hoverBorder: "hover:border-accent-500",
+                    iconBg: "bg-accent-500/20",
+                    iconColor: "text-accent-500",
+                    activeBg: "bg-accent-500/5",
                   }
                 : {
-                    bg: "bg-oil-400/10",
-                    border: "border-oil-400/30",
-                    hoverBorder: "hover:border-oil-400",
-                    iconBg: "bg-oil-400/20",
-                    iconColor: "text-oil-300",
-                    activeBg: "bg-oil-400/5",
+                    bg: "bg-accent-400/10",
+                    border: "border-accent-400/30",
+                    hoverBorder: "hover:border-accent-400",
+                    iconBg: "bg-accent-400/20",
+                    iconColor: "text-accent-400",
+                    activeBg: "bg-accent-400/5",
                   };
 
             return (
@@ -167,9 +167,9 @@ export default function CoreValues() {
                     transition-all duration-300
                     ${
                       isActive
-                        ? value.color === "safety"
-                          ? "bg-gradient-to-r from-safety-500 to-safety-400"
-                          : "bg-gradient-to-r from-oil-400 to-oil-300"
+                        ? value.color === "accent"
+                          ? "bg-gradient-to-r from-accent-500 to-accent-400"
+                          : "bg-gradient-to-r from-accent-400 to-accent-300"
                         : "bg-transparent"
                     }
                   `}
@@ -184,9 +184,9 @@ export default function CoreValues() {
                     className={`
                       absolute -inset-px rounded-xl pointer-events-none
                       ${
-                        value.color === "safety"
-                          ? "shadow-[0_0_30px_rgba(234,88,12,0.15)]"
-                          : "shadow-[0_0_30px_rgba(230,184,0,0.15)]"
+                        value.color === "accent"
+                          ? "shadow-[0_0_30px_rgba(25,171,221,0.15)]"
+                          : "shadow-[0_0_30px_rgba(30,215,224,0.15)]"
                       }
                     `}
                   />

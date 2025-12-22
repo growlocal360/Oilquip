@@ -57,7 +57,7 @@ export default function ServicesPage() {
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <span className="inline-block text-safety-500 font-semibold uppercase tracking-wider text-sm mb-4">
+            <span className="inline-block text-accent-500 font-semibold uppercase tracking-wider text-sm mb-4">
               Our Services
             </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-steel-100 mb-6">
@@ -86,30 +86,30 @@ export default function ServicesPage() {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
                   <Link href={service.href} className="group block h-full">
-                    <div className="relative h-full bg-steel-900/50 border border-steel-700 hover:border-safety-500/50 rounded-xl p-8 lg:p-10 transition-all duration-300 overflow-hidden">
+                    <div className="relative h-full bg-steel-900/50 border border-steel-700 hover:border-accent-500/50 rounded-xl p-8 lg:p-10 transition-all duration-300 overflow-hidden">
                       <div className="absolute inset-0 bg-gradient-to-br from-safety-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                       <div className="relative">
                         <div className="flex items-start justify-between mb-6">
-                          <div className="p-4 bg-safety-500/10 border border-safety-500/20 rounded-xl group-hover:bg-safety-500/20 transition-colors duration-300">
-                            <Icon className="h-10 w-10 text-safety-500" />
+                          <div className="p-4 bg-accent-500/10 border border-accent-500/20 rounded-xl group-hover:bg-accent-500/20 transition-colors duration-300">
+                            <Icon className="h-10 w-10 text-accent-500" />
                           </div>
                           <span className="inline-flex items-center px-3 py-1 bg-steel-700/50 border border-steel-600 rounded-full text-xs font-medium text-steel-300">
                             {service.highlight}
                           </span>
                         </div>
 
-                        <h2 className="text-2xl lg:text-3xl font-bold text-steel-100 mb-2 group-hover:text-safety-400 transition-colors">
+                        <h2 className="text-2xl lg:text-3xl font-bold text-steel-100 mb-2 group-hover:text-accent-400 transition-colors">
                           {service.title}
                         </h2>
-                        <p className="text-safety-500 font-medium mb-4">
+                        <p className="text-accent-500 font-medium mb-4">
                           {service.tagline}
                         </p>
                         <p className="text-steel-400 leading-relaxed mb-6">
                           {service.description}
                         </p>
 
-                        <div className="flex items-center text-safety-400 font-semibold group-hover:text-safety-300 transition-colors">
+                        <div className="flex items-center text-accent-400 font-semibold group-hover:text-safety-300 transition-colors">
                           Learn More
                           <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                         </div>

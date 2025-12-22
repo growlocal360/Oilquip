@@ -13,7 +13,7 @@ export default function Hero() {
 
       {/* Animated glow effect */}
       <motion.div
-        className="absolute top-1/4 -right-1/4 w-[600px] h-[600px] bg-safety-500/10 rounded-full blur-[120px]"
+        className="absolute top-1/4 -right-1/4 w-[600px] h-[600px] bg-accent-500/10 rounded-full blur-[120px]"
         animate={{
           scale: [1, 1.2, 1],
           opacity: [0.3, 0.5, 0.3],
@@ -25,7 +25,7 @@ export default function Hero() {
         }}
       />
       <motion.div
-        className="absolute bottom-1/4 -left-1/4 w-[500px] h-[500px] bg-oil-400/10 rounded-full blur-[100px]"
+        className="absolute bottom-1/4 -left-1/4 w-[500px] h-[500px] bg-accent-400/10 rounded-full blur-[100px]"
         animate={{
           scale: [1.2, 1, 1.2],
           opacity: [0.2, 0.4, 0.2],
@@ -47,7 +47,7 @@ export default function Hero() {
             transition={{ duration: 0.6 }}
             className="inline-flex items-center space-x-2 bg-steel-900/80 border border-steel-700 rounded-full px-4 py-2 mb-8"
           >
-            <span className="inline-block w-2 h-2 bg-safety-500 rounded-full animate-pulse" />
+            <span className="inline-block w-2 h-2 bg-accent-500 rounded-full animate-pulse" />
             <span className="text-steel-300 text-sm font-medium">
               Moog Authorized Integrator
             </span>
@@ -109,8 +109,8 @@ export default function Hero() {
             className="grid grid-cols-1 sm:grid-cols-3 gap-6"
           >
             <div className="flex items-center space-x-4 bg-steel-900/50 border border-steel-800 rounded-lg p-4">
-              <div className="p-3 bg-safety-500/10 rounded-lg">
-                <Clock className="h-6 w-6 text-safety-500" />
+              <div className="p-3 bg-accent-500/10 rounded-lg">
+                <Clock className="h-6 w-6 text-accent-500" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-steel-100">60+</p>
@@ -119,8 +119,8 @@ export default function Hero() {
             </div>
 
             <div className="flex items-center space-x-4 bg-steel-900/50 border border-steel-800 rounded-lg p-4">
-              <div className="p-3 bg-safety-500/10 rounded-lg">
-                <Shield className="h-6 w-6 text-safety-500" />
+              <div className="p-3 bg-accent-500/10 rounded-lg">
+                <Shield className="h-6 w-6 text-accent-500" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-steel-100">1 of 3</p>
@@ -129,8 +129,8 @@ export default function Hero() {
             </div>
 
             <div className="flex items-center space-x-4 bg-steel-900/50 border border-steel-800 rounded-lg p-4">
-              <div className="p-3 bg-safety-500/10 rounded-lg">
-                <Wrench className="h-6 w-6 text-safety-500" />
+              <div className="p-3 bg-accent-500/10 rounded-lg">
+                <Wrench className="h-6 w-6 text-accent-500" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-steel-100">100%</p>
@@ -153,7 +153,7 @@ export default function Hero() {
           transition={{ duration: 2, repeat: Infinity }}
           className="w-6 h-10 border-2 border-steel-600 rounded-full flex items-start justify-center p-2"
         >
-          <motion.div className="w-1.5 h-3 bg-safety-500 rounded-full" />
+          <motion.div className="w-1.5 h-3 bg-accent-500 rounded-full" />
         </motion.div>
       </motion.div>
     </section>

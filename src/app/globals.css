@@ -14,31 +14,18 @@
   --color-steel-100: #eef1f5;
   --color-steel-50: #f8f9fb;
 
-  /* Accent - Oil/Hydraulic inspired */
-  --color-oil-900: #1a1400;
-  --color-oil-800: #332800;
-  --color-oil-700: #4d3d00;
-  --color-oil-600: #665200;
-  --color-oil-500: #806600;
-  --color-oil-400: #b38f00;
-  --color-oil-300: #e6b800;
-  --color-oil-200: #ffd633;
-  --color-oil-100: #ffeb99;
+  /* Accent - Blue/Cyan for text and icons */
+  --color-accent-600: #1590b8;
+  --color-accent-500: #19abdd;
+  --color-accent-400: #1ed7e0;
+  --color-accent-300: #4de3e8;
 
-  /* Safety/Action Orange */
+  /* Safety/Action Orange - CTA Buttons only */
   --color-safety-700: #9a3412;
   --color-safety-600: #c2410c;
   --color-safety-500: #ea580c;
   --color-safety-400: #f97316;
   --color-safety-300: #fb923c;
-
-  /* Rust/Resolve Red-Brown */
-  --color-resolve-900: #451a03;
-  --color-resolve-800: #7c2d12;
-  --color-resolve-700: #9a3412;
-  --color-resolve-600: #b45309;
-  --color-resolve-500: #d97706;
-  --color-resolve-400: #f59e0b;
 
   /* Fonts */
   --font-sans: var(--font-geist-sans);
@@ -97,7 +84,7 @@ body {
 
 /* Utility classes */
 .text-gradient {
-  background: linear-gradient(135deg, #ea580c 0%, #f59e0b 100%);
+  background: linear-gradient(135deg, #19abdd 0%, #1ed7e0 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -125,7 +112,7 @@ body {
 /* Grid pattern background */
 .grid-pattern {
   background-image:
-    linear-gradient(rgba(234, 88, 12, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(234, 88, 12, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(25, 171, 221, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(25, 171, 221, 0.03) 1px, transparent 1px);
   background-size: 50px 50px;
 }

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -38,34 +39,28 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3">
-            <div className="relative">
-              <div className="w-10 h-10 bg-gradient-to-br from-safety-500 to-resolve-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">O</span>
-              </div>
-              <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-oil-300 rounded-full" />
-            </div>
-            <div>
-              <span className="text-xl font-bold text-steel-100 tracking-tight">
-                OILQUIP
-              </span>
-              <span className="block text-xs text-steel-400 tracking-widest uppercase">
-                Since 1960
-              </span>
-            </div>
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/oilquip-engineering-power-generation-white.svg"
+              alt="Oilquip - Engineering & Power Generation"
+              width={200}
+              height={50}
+              className="h-12 w-auto"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
             <Link
               href="/"
-              className="px-4 py-2 text-steel-300 hover:text-safety-400 transition-colors font-medium"
+              className="px-4 py-2 text-steel-300 hover:text-accent-400 transition-colors font-medium"
             >
               Home
             </Link>
             <Link
               href="/#about"
-              className="px-4 py-2 text-steel-300 hover:text-safety-400 transition-colors font-medium"
+              className="px-4 py-2 text-steel-300 hover:text-accent-400 transition-colors font-medium"
             >
               About
             </Link>
@@ -77,7 +72,7 @@ export default function Navigation() {
               onMouseLeave={() => setServicesOpen(false)}
             >
               <button
-                className="flex items-center px-4 py-2 text-steel-300 hover:text-safety-400 transition-colors font-medium"
+                className="flex items-center px-4 py-2 text-steel-300 hover:text-accent-400 transition-colors font-medium"
               >
                 Services
                 <ChevronDown className={cn(
@@ -114,13 +109,13 @@ export default function Navigation() {
 
             <Link
               href="/#values"
-              className="px-4 py-2 text-steel-300 hover:text-safety-400 transition-colors font-medium"
+              className="px-4 py-2 text-steel-300 hover:text-accent-400 transition-colors font-medium"
             >
               Values
             </Link>
             <Link
               href="/#contact"
-              className="px-4 py-2 text-steel-300 hover:text-safety-400 transition-colors font-medium"
+              className="px-4 py-2 text-steel-300 hover:text-accent-400 transition-colors font-medium"
             >
               Contact
             </Link>
@@ -130,7 +125,7 @@ export default function Navigation() {
           <div className="hidden lg:flex items-center space-x-3">
             <Link
               href="#contact"
-              className="px-5 py-2.5 text-steel-300 border border-steel-600 hover:border-safety-500 hover:text-safety-400 rounded-lg transition-all font-medium"
+              className="px-5 py-2.5 text-steel-300 border border-steel-600 hover:border-accent-400 hover:text-accent-400 rounded-lg transition-all font-medium"
             >
               Customer Portal
             </Link>

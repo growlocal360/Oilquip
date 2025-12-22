@@ -68,17 +68,17 @@ export default function DesignEngineeringPage() {
           >
             <Link
               href="/#services"
-              className="inline-flex items-center text-steel-400 hover:text-safety-400 mb-6 transition-colors"
+              className="inline-flex items-center text-steel-400 hover:text-accent-400 mb-6 transition-colors"
             >
               <ArrowRight className="h-4 w-4 mr-2 rotate-180" />
               Back to Services
             </Link>
 
             <div className="flex items-center space-x-4 mb-6">
-              <div className="p-4 bg-safety-500/10 border border-safety-500/20 rounded-xl">
-                <Cpu className="h-10 w-10 text-safety-500" />
+              <div className="p-4 bg-accent-500/10 border border-accent-500/20 rounded-xl">
+                <Cpu className="h-10 w-10 text-accent-500" />
               </div>
-              <span className="text-safety-500 font-semibold uppercase tracking-wider text-sm">
+              <span className="text-accent-500 font-semibold uppercase tracking-wider text-sm">
                 Design & Engineering
               </span>
             </div>
@@ -141,10 +141,10 @@ export default function DesignEngineeringPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-steel-800/50 border border-steel-700 rounded-xl p-6 hover:border-safety-500/50 transition-colors"
+                  className="bg-steel-800/50 border border-steel-700 rounded-xl p-6 hover:border-accent-500/50 transition-colors"
                 >
-                  <div className="p-3 bg-safety-500/10 rounded-lg inline-block mb-4">
-                    <Icon className="h-6 w-6 text-safety-500" />
+                  <div className="p-3 bg-accent-500/10 rounded-lg inline-block mb-4">
+                    <Icon className="h-6 w-6 text-accent-500" />
                   </div>
                   <h3 className="text-lg font-bold text-steel-100 mb-2">
                     {feature.title}
@@ -186,7 +186,7 @@ export default function DesignEngineeringPage() {
                     transition={{ delay: index * 0.05 }}
                     className="flex items-center space-x-3"
                   >
-                    <CheckCircle className="h-5 w-5 text-safety-500 flex-shrink-0" />
+                    <CheckCircle className="h-5 w-5 text-accent-500 flex-shrink-0" />
                     <span className="text-steel-300">{capability}</span>
                   </motion.div>
                 ))}
@@ -201,7 +201,7 @@ export default function DesignEngineeringPage() {
             >
               <div className="bg-steel-900 border border-steel-700 rounded-2xl p-8">
                 <div className="flex items-center space-x-3 mb-6">
-                  <Settings className="h-6 w-6 text-safety-500" />
+                  <Settings className="h-6 w-6 text-accent-500" />
                   <h3 className="text-xl font-bold text-steel-100">
                     Our Process
                   </h3>
@@ -216,7 +216,7 @@ export default function DesignEngineeringPage() {
                     "Installation & Commissioning",
                   ].map((step, index) => (
                     <div key={step} className="flex items-start">
-                      <div className="w-8 h-8 bg-safety-500/10 border border-safety-500/30 rounded-lg flex items-center justify-center text-safety-500 font-bold text-sm mr-4 flex-shrink-0">
+                      <div className="w-8 h-8 bg-accent-500/10 border border-accent-500/30 rounded-lg flex items-center justify-center text-accent-500 font-bold text-sm mr-4 flex-shrink-0">
                         {index + 1}
                       </div>
                       <span className="text-steel-300 pt-1">{step}</span>

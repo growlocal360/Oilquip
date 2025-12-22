@@ -78,17 +78,17 @@ export default function FluidConditioningPage() {
           >
             <Link
               href="/#services"
-              className="inline-flex items-center text-steel-400 hover:text-safety-400 mb-6 transition-colors"
+              className="inline-flex items-center text-steel-400 hover:text-accent-400 mb-6 transition-colors"
             >
               <ArrowRight className="h-4 w-4 mr-2 rotate-180" />
               Back to Services
             </Link>
 
             <div className="flex items-center space-x-4 mb-6">
-              <div className="p-4 bg-safety-500/10 border border-safety-500/20 rounded-xl">
-                <Droplets className="h-10 w-10 text-safety-500" />
+              <div className="p-4 bg-accent-500/10 border border-accent-500/20 rounded-xl">
+                <Droplets className="h-10 w-10 text-accent-500" />
               </div>
-              <span className="text-safety-500 font-semibold uppercase tracking-wider text-sm">
+              <span className="text-accent-500 font-semibold uppercase tracking-wider text-sm">
                 Fluid Conditioning
               </span>
             </div>
@@ -158,9 +158,9 @@ export default function FluidConditioningPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <div className="inline-flex items-center space-x-2 bg-oil-400/10 border border-oil-400/30 rounded-full px-4 py-2 mb-6">
-                <DollarSign className="h-5 w-5 text-oil-300" />
-                <span className="text-oil-300 font-semibold text-sm">
+              <div className="inline-flex items-center space-x-2 bg-accent-400/10 border border-accent-400/30 rounded-full px-4 py-2 mb-6">
+                <DollarSign className="h-5 w-5 text-accent-400" />
+                <span className="text-accent-400 font-semibold text-sm">
                   The Economics
                 </span>
               </div>
@@ -185,7 +185,7 @@ export default function FluidConditioningPage() {
 
               <div className="bg-steel-900/50 border border-steel-700 rounded-xl p-6">
                 <div className="flex items-start space-x-4">
-                  <AlertTriangle className="h-6 w-6 text-safety-500 flex-shrink-0 mt-1" />
+                  <AlertTriangle className="h-6 w-6 text-accent-500 flex-shrink-0 mt-1" />
                   <div>
                     <h4 className="text-steel-100 font-semibold mb-2">
                       The Hidden Cost
@@ -219,7 +219,7 @@ export default function FluidConditioningPage() {
                       transition={{ delay: index * 0.05 }}
                       className="flex items-center space-x-3"
                     >
-                      <CheckCircle className="h-5 w-5 text-safety-500 flex-shrink-0" />
+                      <CheckCircle className="h-5 w-5 text-accent-500 flex-shrink-0" />
                       <span className="text-steel-300">{benefit}</span>
                     </motion.div>
                   ))}
@@ -239,9 +239,9 @@ export default function FluidConditioningPage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <div className="inline-flex items-center space-x-2 bg-safety-500/10 border border-safety-500/30 rounded-full px-4 py-2 mb-6">
-              <RefreshCw className="h-5 w-5 text-safety-500" />
-              <span className="text-safety-400 font-semibold text-sm">
+            <div className="inline-flex items-center space-x-2 bg-accent-500/10 border border-accent-500/30 rounded-full px-4 py-2 mb-6">
+              <RefreshCw className="h-5 w-5 text-accent-500" />
+              <span className="text-accent-400 font-semibold text-sm">
                 Rental Available
               </span>
             </div>
@@ -265,10 +265,10 @@ export default function FluidConditioningPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-steel-800/50 border border-steel-700 rounded-xl p-8 hover:border-safety-500/50 transition-colors"
+                  className="bg-steel-800/50 border border-steel-700 rounded-xl p-8 hover:border-accent-500/50 transition-colors"
                 >
-                  <div className="p-4 bg-safety-500/10 border border-safety-500/20 rounded-xl inline-block mb-6">
-                    <Icon className="h-8 w-8 text-safety-500" />
+                  <div className="p-4 bg-accent-500/10 border border-accent-500/20 rounded-xl inline-block mb-6">
+                    <Icon className="h-8 w-8 text-accent-500" />
                   </div>
                   <h3 className="text-xl font-bold text-steel-100 mb-3">
                     {equipment.name}
@@ -302,7 +302,7 @@ export default function FluidConditioningPage() {
                     "Upgrade options anytime",
                   ].map((benefit) => (
                     <div key={benefit} className="flex items-center space-x-3">
-                      <CheckCircle className="h-5 w-5 text-safety-500 flex-shrink-0" />
+                      <CheckCircle className="h-5 w-5 text-accent-500 flex-shrink-0" />
                       <span className="text-steel-300 text-sm">{benefit}</span>
                     </div>
                   ))}

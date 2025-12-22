@@ -107,17 +107,17 @@ export default function RepairsUpgradesPage() {
           >
             <Link
               href="/#services"
-              className="inline-flex items-center text-steel-400 hover:text-safety-400 mb-6 transition-colors"
+              className="inline-flex items-center text-steel-400 hover:text-accent-400 mb-6 transition-colors"
             >
               <ArrowRight className="h-4 w-4 mr-2 rotate-180" />
               Back to Services
             </Link>
 
             <div className="flex items-center space-x-4 mb-6">
-              <div className="p-4 bg-safety-500/10 border border-safety-500/20 rounded-xl">
-                <Wrench className="h-10 w-10 text-safety-500" />
+              <div className="p-4 bg-accent-500/10 border border-accent-500/20 rounded-xl">
+                <Wrench className="h-10 w-10 text-accent-500" />
               </div>
-              <span className="text-safety-500 font-semibold uppercase tracking-wider text-sm">
+              <span className="text-accent-500 font-semibold uppercase tracking-wider text-sm">
                 Repairs & Upgrades
               </span>
             </div>
@@ -182,10 +182,10 @@ export default function RepairsUpgradesPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-steel-800/50 border border-steel-700 rounded-xl p-6 hover:border-safety-500/50 transition-colors"
+                  className="bg-steel-800/50 border border-steel-700 rounded-xl p-6 hover:border-accent-500/50 transition-colors"
                 >
-                  <div className="p-3 bg-safety-500/10 rounded-lg inline-block mb-4">
-                    <Icon className="h-6 w-6 text-safety-500" />
+                  <div className="p-3 bg-accent-500/10 rounded-lg inline-block mb-4">
+                    <Icon className="h-6 w-6 text-accent-500" />
                   </div>
                   <h3 className="text-xl font-bold text-steel-100 mb-2">
                     {service.name}
@@ -209,9 +209,9 @@ export default function RepairsUpgradesPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <div className="inline-flex items-center space-x-2 bg-safety-500/10 border border-safety-500/30 rounded-full px-4 py-2 mb-6">
-                <Shield className="h-5 w-5 text-safety-500" />
-                <span className="text-safety-400 font-semibold text-sm">
+              <div className="inline-flex items-center space-x-2 bg-accent-500/10 border border-accent-500/30 rounded-full px-4 py-2 mb-6">
+                <Shield className="h-5 w-5 text-accent-500" />
+                <span className="text-accent-400 font-semibold text-sm">
                   Our Guarantee
                 </span>
               </div>
@@ -238,7 +238,7 @@ export default function RepairsUpgradesPage() {
                     transition={{ delay: index * 0.1 }}
                     className="flex items-start space-x-4"
                   >
-                    <CheckCircle className="h-6 w-6 text-safety-500 flex-shrink-0 mt-0.5" />
+                    <CheckCircle className="h-6 w-6 text-accent-500 flex-shrink-0 mt-0.5" />
                     <div>
                       <h4 className="text-steel-100 font-semibold mb-1">
                         {guarantee.title}
@@ -265,7 +265,7 @@ export default function RepairsUpgradesPage() {
                   {process.map((item, index) => (
                     <div key={item.step} className="relative">
                       <div className="flex items-start">
-                        <div className="w-10 h-10 bg-safety-500/10 border border-safety-500/30 rounded-lg flex items-center justify-center text-safety-500 font-bold flex-shrink-0 mr-4">
+                        <div className="w-10 h-10 bg-accent-500/10 border border-accent-500/30 rounded-lg flex items-center justify-center text-accent-500 font-bold flex-shrink-0 mr-4">
                           {item.step}
                         </div>
                         <div>
@@ -317,14 +317,14 @@ export default function RepairsUpgradesPage() {
                     "Performance optimization",
                   ].map((item) => (
                     <li key={item} className="flex items-center space-x-3">
-                      <CheckCircle className="h-5 w-5 text-safety-500 flex-shrink-0" />
+                      <CheckCircle className="h-5 w-5 text-accent-500 flex-shrink-0" />
                       <span className="text-steel-300 text-sm">{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
               <div className="bg-steel-950/50 border border-steel-700 rounded-xl p-8 text-center">
-                <Wrench className="h-16 w-16 text-safety-500 mx-auto mb-6" />
+                <Wrench className="h-16 w-16 text-accent-500 mx-auto mb-6" />
                 <h3 className="text-2xl font-bold text-steel-100 mb-3">
                   Need a Repair Quote?
                 </h3>

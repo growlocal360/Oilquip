@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Mail, Phone, MapPin } from "lucide-react";
 
 const services = [
@@ -25,28 +26,21 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Company Info */}
           <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center space-x-3 mb-6">
-              <div className="relative">
-                <div className="w-10 h-10 bg-gradient-to-br from-safety-500 to-resolve-500 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">O</span>
-                </div>
-                <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-oil-300 rounded-full" />
-              </div>
-              <div>
-                <span className="text-xl font-bold text-steel-100 tracking-tight">
-                  OILQUIP
-                </span>
-                <span className="block text-xs text-steel-400 tracking-widest uppercase">
-                  Since 1960
-                </span>
-              </div>
+            <Link href="/" className="inline-block mb-6">
+              <Image
+                src="/oilquip-engineering-power-generation-white.svg"
+                alt="Oilquip - Engineering & Power Generation"
+                width={180}
+                height={45}
+                className="h-10 w-auto"
+              />
             </Link>
             <p className="text-steel-400 text-sm leading-relaxed mb-6">
               Rooted in Resolve. A legacy of turning fluid power into precision,
               motion into mastery.
             </p>
             <div className="flex items-center space-x-2 text-steel-400 text-sm">
-              <span className="inline-block w-2 h-2 bg-safety-500 rounded-full animate-pulse" />
+              <span className="inline-block w-2 h-2 bg-accent-500 rounded-full animate-pulse" />
               <span>Moog Authorized Integrator</span>
             </div>
           </div>
@@ -61,7 +55,7 @@ export default function Footer() {
                 <li key={service.name}>
                   <Link
                     href={service.href}
-                    className="text-steel-400 hover:text-safety-400 transition-colors text-sm"
+                    className="text-steel-400 hover:text-accent-400 transition-colors text-sm"
                   >
                     {service.name}
                   </Link>
@@ -80,7 +74,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-steel-400 hover:text-safety-400 transition-colors text-sm"
+                    className="text-steel-400 hover:text-accent-400 transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -98,24 +92,24 @@ export default function Footer() {
               <li>
                 <a
                   href="mailto:sales@oilquip.com"
-                  className="flex items-center text-steel-400 hover:text-safety-400 transition-colors text-sm"
+                  className="flex items-center text-steel-400 hover:text-accent-400 transition-colors text-sm"
                 >
-                  <Mail className="h-4 w-4 mr-3 text-safety-500" />
+                  <Mail className="h-4 w-4 mr-3 text-accent-500" />
                   sales@oilquip.com
                 </a>
               </li>
               <li>
                 <a
                   href="tel:+13374333601"
-                  className="flex items-center text-steel-400 hover:text-safety-400 transition-colors text-sm"
+                  className="flex items-center text-steel-400 hover:text-accent-400 transition-colors text-sm"
                 >
-                  <Phone className="h-4 w-4 mr-3 text-safety-500" />
+                  <Phone className="h-4 w-4 mr-3 text-accent-500" />
                   (337) 433-3601
                 </a>
               </li>
               <li>
                 <div className="flex items-start text-steel-400 text-sm">
-                  <MapPin className="h-4 w-4 mr-3 mt-0.5 text-safety-500 flex-shrink-0" />
+                  <MapPin className="h-4 w-4 mr-3 mt-0.5 text-accent-500 flex-shrink-0" />
                   <span>Lake Charles, LA</span>
                 </div>
               </li>

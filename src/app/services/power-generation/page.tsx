@@ -62,17 +62,17 @@ export default function PowerGenerationPage() {
           >
             <Link
               href="/#services"
-              className="inline-flex items-center text-steel-400 hover:text-safety-400 mb-6 transition-colors"
+              className="inline-flex items-center text-steel-400 hover:text-accent-400 mb-6 transition-colors"
             >
               <ArrowRight className="h-4 w-4 mr-2 rotate-180" />
               Back to Services
             </Link>
 
             <div className="flex items-center space-x-4 mb-6">
-              <div className="p-4 bg-safety-500/10 border border-safety-500/20 rounded-xl">
-                <Zap className="h-10 w-10 text-safety-500" />
+              <div className="p-4 bg-accent-500/10 border border-accent-500/20 rounded-xl">
+                <Zap className="h-10 w-10 text-accent-500" />
               </div>
-              <span className="text-safety-500 font-semibold uppercase tracking-wider text-sm">
+              <span className="text-accent-500 font-semibold uppercase tracking-wider text-sm">
                 Power Generation
               </span>
             </div>
@@ -89,9 +89,9 @@ export default function PowerGenerationPage() {
             </p>
 
             {/* Moog Badge */}
-            <div className="inline-flex items-center space-x-3 bg-safety-500/10 border border-safety-500/30 rounded-full px-6 py-3 mb-8">
-              <Award className="h-6 w-6 text-safety-500" />
-              <span className="text-safety-400 font-semibold">
+            <div className="inline-flex items-center space-x-3 bg-accent-500/10 border border-accent-500/30 rounded-full px-6 py-3 mb-8">
+              <Award className="h-6 w-6 text-accent-500" />
+              <span className="text-accent-400 font-semibold">
                 One of Only 3 Moog Authorized Integrators in the U.S.
               </span>
             </div>
@@ -124,9 +124,9 @@ export default function PowerGenerationPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <div className="inline-flex items-center space-x-2 bg-safety-500/10 border border-safety-500/30 rounded-full px-4 py-2 mb-6">
-                <RefreshCw className="h-5 w-5 text-safety-500" />
-                <span className="text-safety-400 font-semibold text-sm">
+              <div className="inline-flex items-center space-x-2 bg-accent-500/10 border border-accent-500/30 rounded-full px-4 py-2 mb-6">
+                <RefreshCw className="h-5 w-5 text-accent-500" />
+                <span className="text-accent-400 font-semibold text-sm">
                   Actuator Exchange Program
                 </span>
               </div>
@@ -143,7 +143,7 @@ export default function PowerGenerationPage() {
               </p>
 
               <p className="text-steel-300 text-lg mb-8 leading-relaxed">
-                <span className="text-safety-400 font-semibold">
+                <span className="text-accent-400 font-semibold">
                   That&apos;s our approach.
                 </span>{" "}
                 Don&apos;t lose days or weeks waiting for your actuator to be
@@ -153,7 +153,7 @@ export default function PowerGenerationPage() {
 
               <div className="bg-steel-800/50 border border-steel-700 rounded-xl p-6">
                 <div className="flex items-start space-x-4">
-                  <AlertTriangle className="h-6 w-6 text-oil-300 flex-shrink-0 mt-1" />
+                  <AlertTriangle className="h-6 w-6 text-accent-400 flex-shrink-0 mt-1" />
                   <div>
                     <h4 className="text-steel-100 font-semibold mb-2">
                       Every Hour Counts
@@ -180,9 +180,9 @@ export default function PowerGenerationPage() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className="bg-steel-800/50 border border-steel-700 rounded-xl p-6 hover:border-safety-500/50 transition-colors"
+                    className="bg-steel-800/50 border border-steel-700 rounded-xl p-6 hover:border-accent-500/50 transition-colors"
                   >
-                    <div className="w-10 h-10 bg-safety-500/10 border border-safety-500/30 rounded-lg flex items-center justify-center text-safety-500 font-bold mb-4">
+                    <div className="w-10 h-10 bg-accent-500/10 border border-accent-500/30 rounded-lg flex items-center justify-center text-accent-500 font-bold mb-4">
                       {item.step}
                     </div>
                     <h3 className="text-steel-100 font-bold mb-2">
@@ -209,8 +209,8 @@ export default function PowerGenerationPage() {
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
                 <div className="flex items-center space-x-3 mb-6">
-                  <Shield className="h-8 w-8 text-safety-500" />
-                  <span className="text-safety-500 font-semibold uppercase tracking-wider text-sm">
+                  <Shield className="h-8 w-8 text-accent-500" />
+                  <span className="text-accent-500 font-semibold uppercase tracking-wider text-sm">
                     Factory Authorized
                   </span>
                 </div>
@@ -231,14 +231,14 @@ export default function PowerGenerationPage() {
                     "Full warranty support",
                   ].map((item) => (
                     <li key={item} className="flex items-center space-x-3">
-                      <CheckCircle className="h-5 w-5 text-safety-500" />
+                      <CheckCircle className="h-5 w-5 text-accent-500" />
                       <span className="text-steel-300">{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
               <div className="text-center">
-                <div className="inline-block bg-steel-950/50 border-2 border-safety-500/30 rounded-2xl p-10">
+                <div className="inline-block bg-steel-950/50 border-2 border-accent-500/30 rounded-2xl p-10">
                   <div className="text-6xl font-bold text-gradient mb-2">
                     1 of 3
                   </div>
@@ -264,9 +264,9 @@ export default function PowerGenerationPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <div className="inline-flex items-center space-x-2 bg-oil-400/10 border border-oil-400/30 rounded-full px-4 py-2 mb-6">
-                <Clock className="h-5 w-5 text-oil-300" />
-                <span className="text-oil-300 font-semibold text-sm">
+              <div className="inline-flex items-center space-x-2 bg-accent-400/10 border border-accent-400/30 rounded-full px-4 py-2 mb-6">
+                <Clock className="h-5 w-5 text-accent-400" />
+                <span className="text-accent-400 font-semibold text-sm">
                   Time-Zero Repairs
                 </span>
               </div>
@@ -292,7 +292,7 @@ export default function PowerGenerationPage() {
                     transition={{ delay: index * 0.05 }}
                     className="flex items-center space-x-3"
                   >
-                    <CheckCircle className="h-5 w-5 text-safety-500 flex-shrink-0" />
+                    <CheckCircle className="h-5 w-5 text-accent-500 flex-shrink-0" />
                     <span className="text-steel-300">{service}</span>
                   </motion.div>
                 ))}
@@ -310,8 +310,8 @@ export default function PowerGenerationPage() {
               </h3>
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
-                  <div className="w-10 h-10 bg-safety-500/10 border border-safety-500/30 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Zap className="h-5 w-5 text-safety-500" />
+                  <div className="w-10 h-10 bg-accent-500/10 border border-accent-500/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Zap className="h-5 w-5 text-accent-500" />
                   </div>
                   <div>
                     <h4 className="text-steel-100 font-semibold mb-1">
@@ -324,8 +324,8 @@ export default function PowerGenerationPage() {
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
-                  <div className="w-10 h-10 bg-safety-500/10 border border-safety-500/30 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Shield className="h-5 w-5 text-safety-500" />
+                  <div className="w-10 h-10 bg-accent-500/10 border border-accent-500/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Shield className="h-5 w-5 text-accent-500" />
                   </div>
                   <div>
                     <h4 className="text-steel-100 font-semibold mb-1">
@@ -338,8 +338,8 @@ export default function PowerGenerationPage() {
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
-                  <div className="w-10 h-10 bg-safety-500/10 border border-safety-500/30 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <RefreshCw className="h-5 w-5 text-safety-500" />
+                  <div className="w-10 h-10 bg-accent-500/10 border border-accent-500/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <RefreshCw className="h-5 w-5 text-accent-500" />
                   </div>
                   <div>
                     <h4 className="text-steel-100 font-semibold mb-1">
