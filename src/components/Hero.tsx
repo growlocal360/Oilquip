@@ -19,10 +19,10 @@ export default function Hero() {
           quality={90}
         />
         {/* Lightened overlay for text legibility */}
-        <div className="absolute inset-0 bg-steel-950/50" />
+        <div className="absolute inset-0 bg-steel-950/30" />
         {/* Gradient overlay for depth - lighter on right to show more image */}
-        <div className="absolute inset-0 bg-gradient-to-r from-steel-950/70 via-steel-950/40 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-steel-950 via-transparent to-steel-950/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-steel-950/50 via-steel-950/25 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-steel-950 via-transparent to-steel-950/20" />
       </div>
 
       {/* Content - Left aligned */}
