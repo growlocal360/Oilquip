@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowLeft, Save, Upload, FileText, X, RefreshCw } from "lucide-react";
+import { ArrowLeft, Save, Upload, FileText, X, RefreshCw, ImageIcon } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import type { Resource, ResourceCategory } from "@/lib/types";
 
@@ -13,10 +13,12 @@ export default function EditResourcePage() {
   const params = useParams();
   const id = params.id as string;
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const thumbnailInputRef = useRef<HTMLInputElement>(null);
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [uploadingThumbnail, setUploadingThumbnail] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [categoryId, setCategoryId] = useState("");
@@ -25,6 +27,7 @@ export default function EditResourcePage() {
   const [fileType, setFileType] = useState("");
   const [fileSize, setFileSize] = useState(0);
   const [fileName, setFileName] = useState("");
+  const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [published, setPublished] = useState(true);
   const [originalFileName, setOriginalFileName] = useState("");
 
@@ -59,6 +62,7 @@ export default function EditResourcePage() {
       setFileUrl(resource.file_url);
       setFileType(resource.file_type || "");
       setFileSize(resource.file_size || 0);
+      setThumbnailUrl(resource.thumbnail_url || "");
       setPublished(resource.published);
 
       // Extract filename from URL
@@ -112,6 +116,49 @@ export default function EditResourcePage() {
     setUploading(false);
   };
 
+  const handleThumbnailChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingThumbnail(true);
+
+    try {
+      const supabase = createClient();
+
+      // Generate unique filename
+      const fileExt = file.name.split(".").pop();
+      const uniqueName = `thumbnails/${Date.now()}-${Math.random().toString(36).substring(2, 11)}.${fileExt}`;
+
+      // Upload directly to Supabase storage
+      const { data, error } = await supabase.storage
+        .from("resources")
+        .upload(uniqueName, file);
+
+      if (error) {
+        throw error;
+      }
+
+      // Get public URL
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from("resources").getPublicUrl(uniqueName);
+
+      setThumbnailUrl(publicUrl);
+    } catch (error) {
+      console.error("Thumbnail upload error:", error);
+      alert("Failed to upload thumbnail. Please try again.");
+    }
+
+    setUploadingThumbnail(false);
+  };
+
+  const clearThumbnail = () => {
+    setThumbnailUrl("");
+    if (thumbnailInputRef.current) {
+      thumbnailInputRef.current.value = "";
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!title || !fileUrl) return;
@@ -128,6 +175,7 @@ export default function EditResourcePage() {
         file_url: fileUrl,
         file_type: fileType || null,
         file_size: fileSize || null,
+        thumbnail_url: thumbnailUrl || null,
         published,
       }),
     });
@@ -278,6 +326,59 @@ export default function EditResourcePage() {
                 rows={3}
                 className="w-full px-4 py-3 bg-steel-800 border border-steel-700 focus:border-accent-500 rounded-lg text-steel-100 placeholder-steel-500 outline-none transition-colors resize-none"
                 placeholder="Brief description of this resource..."
+              />
+            </motion.div>
+
+            {/* Thumbnail Upload */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <label className="block text-sm font-medium text-steel-300 mb-2">
+                Preview Image (optional)
+              </label>
+              <p className="text-steel-500 text-sm mb-3">
+                Add a preview image for PDFs and other non-image files
+              </p>
+              {thumbnailUrl ? (
+                <div className="flex items-center justify-between p-4 bg-steel-800 border border-steel-700 rounded-lg">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-16 h-16 rounded-lg overflow-hidden bg-steel-700">
+                      <img
+                        src={thumbnailUrl}
+                        alt="Thumbnail preview"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <p className="text-steel-100 font-medium">Thumbnail uploaded</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={clearThumbnail}
+                    className="p-2 text-steel-400 hover:text-red-400 rounded transition-colors"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                </div>
+              ) : (
+                <div
+                  onClick={() => thumbnailInputRef.current?.click()}
+                  className="border-2 border-dashed border-steel-700 hover:border-accent-500/50 rounded-lg p-6 text-center cursor-pointer transition-colors"
+                >
+                  <ImageIcon className={`h-8 w-8 text-steel-500 mx-auto mb-3 ${uploadingThumbnail ? "animate-pulse" : ""}`} />
+                  <p className="text-steel-300 mb-1">
+                    {uploadingThumbnail ? "Uploading..." : "Click to upload preview image"}
+                  </p>
+                  <p className="text-steel-500 text-sm">PNG, JPG up to 2MB</p>
+                </div>
+              )}
+              <input
+                ref={thumbnailInputRef}
+                type="file"
+                onChange={handleThumbnailChange}
+                className="hidden"
+                accept=".png,.jpg,.jpeg"
               />
             </motion.div>
           </div>
