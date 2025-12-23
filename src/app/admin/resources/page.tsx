@@ -221,6 +221,13 @@ export default function AdminResourcesPage() {
                         >
                           <Eye className="h-4 w-4" />
                         </a>
+                        <Link
+                          href={`/admin/resources/${resource.id}/edit`}
+                          className="p-2 text-steel-400 hover:text-accent-400 hover:bg-steel-800 rounded transition-colors"
+                          title="Edit"
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </Link>
                         <button
                           onClick={() => handleDelete(resource.id)}
                           disabled={deleteId === resource.id}
