@@ -45,33 +45,39 @@ export default function NewResourcePage() {
     setUploading(true);
     setFileName(file.name);
 
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("bucket", "resources");
-
     try {
-      const response = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
+      const supabase = createClient();
 
-      if (response.ok) {
-        const data = await response.json();
-        setFileUrl(data.url);
-        setFileType(data.type);
-        setFileSize(data.size);
+      // Generate unique filename
+      const fileExt = file.name.split(".").pop();
+      const uniqueName = `${Date.now()}-${Math.random().toString(36).substring(2, 11)}.${fileExt}`;
 
-        // Auto-fill title from filename if empty
-        if (!title) {
-          const nameWithoutExt = file.name.replace(/\.[^/.]+$/, "");
-          setTitle(nameWithoutExt.replace(/[-_]/g, " "));
-        }
-      } else {
-        alert("Failed to upload file");
-        setFileName("");
+      // Upload directly to Supabase storage
+      const { data, error } = await supabase.storage
+        .from("resources")
+        .upload(uniqueName, file);
+
+      if (error) {
+        throw error;
       }
-    } catch {
-      alert("Failed to upload file");
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from("resources")
+        .getPublicUrl(uniqueName);
+
+      setFileUrl(publicUrl);
+      setFileType(file.type);
+      setFileSize(file.size);
+
+      // Auto-fill title from filename if empty
+      if (!title) {
+        const nameWithoutExt = file.name.replace(/\.[^/.]+$/, "");
+        setTitle(nameWithoutExt.replace(/[-_]/g, " "));
+      }
+    } catch (error) {
+      console.error("Upload error:", error);
+      alert("Failed to upload file. Please try again.");
       setFileName("");
     }
 
