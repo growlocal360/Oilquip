@@ -8,6 +8,7 @@ import {
   Newspaper,
   Briefcase,
   FolderOpen,
+  Building2,
   ExternalLink,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -32,6 +33,11 @@ const navItems = [
     label: "Resources",
     href: "/admin/resources",
     icon: FolderOpen,
+  },
+  {
+    label: "Brands",
+    href: "/admin/brands",
+    icon: Building2,
   },
 ];
 

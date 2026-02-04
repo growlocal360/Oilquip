@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Newspaper, Briefcase, FolderOpen, Plus, ArrowRight } from "lucide-react";
+import { Newspaper, Briefcase, FolderOpen, Building2, Plus, ArrowRight } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
 interface DashboardStats {
@@ -12,6 +12,8 @@ interface DashboardStats {
   jobsCount: number;
   activeJobsCount: number;
   resourcesCount: number;
+  brandsCount: number;
+  publishedBrandsCount: number;
 }
 
 export default function AdminDashboard() {
@@ -21,6 +23,8 @@ export default function AdminDashboard() {
     jobsCount: 0,
     activeJobsCount: 0,
     resourcesCount: 0,
+    brandsCount: 0,
+    publishedBrandsCount: 0,
   });
   const [loading, setLoading] = useState(true);
 
@@ -28,13 +32,15 @@ export default function AdminDashboard() {
     const fetchStats = async () => {
       const supabase = createClient();
 
-      const [newsResult, publishedNewsResult, jobsResult, activeJobsResult, resourcesResult] =
+      const [newsResult, publishedNewsResult, jobsResult, activeJobsResult, resourcesResult, brandsResult, publishedBrandsResult] =
         await Promise.all([
           supabase.from("news_articles").select("id", { count: "exact", head: true }),
           supabase.from("news_articles").select("id", { count: "exact", head: true }).eq("published", true),
           supabase.from("job_postings").select("id", { count: "exact", head: true }),
           supabase.from("job_postings").select("id", { count: "exact", head: true }).eq("published", true),
           supabase.from("resources").select("id", { count: "exact", head: true }),
+          supabase.from("brands").select("id", { count: "exact", head: true }),
+          supabase.from("brands").select("id", { count: "exact", head: true }).eq("published", true),
         ]);
 
       setStats({
@@ -43,6 +49,8 @@ export default function AdminDashboard() {
         jobsCount: jobsResult.count || 0,
         activeJobsCount: activeJobsResult.count || 0,
         resourcesCount: resourcesResult.count || 0,
+        brandsCount: brandsResult.count || 0,
+        publishedBrandsCount: publishedBrandsResult.count || 0,
       });
       setLoading(false);
     };
@@ -78,6 +86,15 @@ export default function AdminDashboard() {
       newHref: "/admin/resources/new",
       color: "accent",
     },
+    {
+      title: "Brands",
+      total: stats.brandsCount,
+      published: stats.publishedBrandsCount,
+      icon: Building2,
+      href: "/admin/brands",
+      newHref: "/admin/brands/new",
+      color: "safety",
+    },
   ];
 
   return (
@@ -91,7 +108,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid md:grid-cols-3 gap-6 mb-8">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {statCards.map((card, index) => {
           const Icon = card.icon;
           return (
@@ -163,7 +180,7 @@ export default function AdminDashboard() {
         <h2 className="text-xl font-semibold text-steel-100 mb-4">
           Quick Actions
         </h2>
-        <div className="grid sm:grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <Link
             href="/admin/news/new"
             className="flex items-center space-x-3 p-4 bg-steel-800 hover:bg-steel-700 border border-steel-700 hover:border-accent-500/50 rounded-lg transition-colors"
@@ -184,6 +201,13 @@ export default function AdminDashboard() {
           >
             <FolderOpen className="h-5 w-5 text-accent-500" />
             <span className="text-steel-200">Upload Resource</span>
+          </Link>
+          <Link
+            href="/admin/brands/new"
+            className="flex items-center space-x-3 p-4 bg-steel-800 hover:bg-steel-700 border border-steel-700 hover:border-accent-500/50 rounded-lg transition-colors"
+          >
+            <Building2 className="h-5 w-5 text-accent-500" />
+            <span className="text-steel-200">Add Brand</span>
           </Link>
         </div>
       </div>
