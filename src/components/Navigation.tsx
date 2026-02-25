@@ -61,12 +61,6 @@ export default function Navigation() {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
             <Link
-              href="/"
-              className="px-4 py-2 text-steel-300 hover:text-accent-400 transition-colors font-medium"
-            >
-              Home
-            </Link>
-            <Link
               href="/#about"
               className="px-4 py-2 text-steel-300 hover:text-accent-400 transition-colors font-medium"
             >
@@ -221,13 +215,6 @@ export default function Navigation() {
             className="lg:hidden bg-steel-950 border-b border-steel-800"
           >
             <div className="px-4 py-4 space-y-2">
-              <Link
-                href="/"
-                onClick={() => setIsOpen(false)}
-                className="block px-4 py-3 text-steel-300 hover:text-white hover:bg-steel-900 rounded-lg transition-colors"
-              >
-                Home
-              </Link>
               <Link
                 href="/#about"
                 onClick={() => setIsOpen(false)}
