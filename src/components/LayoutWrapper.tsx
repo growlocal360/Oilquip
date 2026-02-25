@@ -14,7 +14,8 @@ export default function LayoutWrapper({
   // Hide navigation and footer on admin and auth pages
   const isAdminRoute = pathname.startsWith("/admin");
   const isAuthRoute = pathname.startsWith("/login") || pathname.startsWith("/auth");
-  const hideLayout = isAdminRoute || isAuthRoute;
+  const isPortalRoute = pathname.startsWith("/customer-portal");
+  const hideLayout = isAdminRoute || isAuthRoute || isPortalRoute;
 
   if (hideLayout) {
     return <>{children}</>;

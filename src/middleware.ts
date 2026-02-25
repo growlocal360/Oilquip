@@ -57,6 +57,47 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  // Protect customer portal routes
+  if (
+    request.nextUrl.pathname.startsWith("/customer-portal/dashboard") ||
+    request.nextUrl.pathname.startsWith("/customer-portal/projects")
+  ) {
+    if (!user) {
+      return NextResponse.redirect(
+        new URL("/customer-portal", request.url)
+      );
+    }
+
+    const { data: portalUser } = await supabase
+      .from("portal_users")
+      .select("id")
+      .eq("email", user.email)
+      .eq("active", true)
+      .single();
+
+    if (!portalUser) {
+      return NextResponse.redirect(
+        new URL("/customer-portal?error=unauthorized", request.url)
+      );
+    }
+  }
+
+  // Redirect logged-in portal users from login to dashboard
+  if (request.nextUrl.pathname === "/customer-portal" && user) {
+    const { data: portalUser } = await supabase
+      .from("portal_users")
+      .select("id")
+      .eq("email", user.email)
+      .eq("active", true)
+      .single();
+
+    if (portalUser) {
+      return NextResponse.redirect(
+        new URL("/customer-portal/dashboard", request.url)
+      );
+    }
+  }
+
   // Redirect logged-in users away from login page
   if (request.nextUrl.pathname === "/login" && user) {
     const { data: approved } = await supabase
@@ -74,5 +115,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/login"],
+  matcher: ["/admin/:path*", "/login", "/customer-portal/:path*"],
 };

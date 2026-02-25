@@ -9,6 +9,7 @@ import {
   Briefcase,
   FolderOpen,
   Building2,
+  Users,
   ExternalLink,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -38,6 +39,11 @@ const navItems = [
     label: "Brands",
     href: "/admin/brands",
     icon: Building2,
+  },
+  {
+    label: "Portal",
+    href: "/admin/portal",
+    icon: Users,
   },
 ];
 

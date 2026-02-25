@@ -82,7 +82,7 @@ export default function Hero() {
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
-              href="#contact"
+              href="/customer-portal"
               className="inline-flex items-center justify-center px-8 py-4 border-2 border-steel-400 hover:border-white text-steel-200 hover:text-white rounded-lg font-semibold text-lg transition-all backdrop-blur-sm"
             >
               Customer Portal

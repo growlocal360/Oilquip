@@ -181,7 +181,7 @@ export default function Navigation() {
           {/* CTA Buttons */}
           <div className="hidden lg:flex items-center space-x-3">
             <Link
-              href="#contact"
+              href="/customer-portal"
               className="px-5 py-2.5 text-steel-300 border border-steel-600 hover:border-accent-400 hover:text-accent-400 rounded-lg transition-all font-medium"
             >
               Customer Portal
@@ -283,7 +283,7 @@ export default function Navigation() {
 
               <div className="pt-4 space-y-2">
                 <Link
-                  href="#contact"
+                  href="/customer-portal"
                   className="block w-full px-5 py-3 text-center text-steel-300 border border-steel-600 rounded-lg"
                 >
                   Customer Portal
