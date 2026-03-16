@@ -9,11 +9,13 @@ import type { PortalProject } from "@/lib/types";
 interface ProjectWithDocs extends Omit<PortalProject, "customer"> {
   portal_documents: { id: string }[];
   customer?: { id: string; name: string };
+  portal_customers?: { id: string; name: string };
 }
 
 export default function PortalDashboard() {
   const [projects, setProjects] = useState<ProjectWithDocs[]>([]);
   const [customerName, setCustomerName] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -23,15 +25,27 @@ export default function PortalDashboard() {
       if (!meResponse.ok) return;
       const portalUser = await meResponse.json();
 
-      setCustomerName(portalUser.customer?.name || "");
+      if (portalUser.is_admin) {
+        setIsAdmin(true);
+        setCustomerName("Admin");
 
-      // Get projects for this customer
-      const projectsResponse = await fetch(
-        `/api/portal/customers/${portalUser.customer_id}/projects`
-      );
-      if (projectsResponse.ok) {
-        const data = await projectsResponse.json();
-        setProjects(data);
+        // Fetch ALL projects across all customers
+        const allProjectsResponse = await fetch("/api/portal/projects");
+        if (allProjectsResponse.ok) {
+          const data = await allProjectsResponse.json();
+          setProjects(data);
+        }
+      } else {
+        setCustomerName(portalUser.customer?.name || "");
+
+        // Get projects for this customer
+        const projectsResponse = await fetch(
+          `/api/portal/customers/${portalUser.customer_id}/projects`
+        );
+        if (projectsResponse.ok) {
+          const data = await projectsResponse.json();
+          setProjects(data);
+        }
       }
       setLoading(false);
     };
@@ -62,10 +76,12 @@ export default function PortalDashboard() {
         className="mb-8"
       >
         <h1 className="text-3xl font-bold text-steel-100">
-          Welcome back{customerName ? `, ${customerName}` : ""}
+          {isAdmin ? "All Customer Projects" : `Welcome back${customerName ? `, ${customerName}` : ""}`}
         </h1>
         <p className="text-steel-400 mt-2">
-          View your equipment projects and documentation below.
+          {isAdmin
+            ? "Viewing all projects across all customers."
+            : "View your equipment projects and documentation below."}
         </p>
       </motion.div>
 
@@ -113,9 +129,15 @@ export default function PortalDashboard() {
                   </span>
                 </div>
 
-                <h3 className="text-lg font-semibold text-steel-100 group-hover:text-accent-400 transition-colors mb-2">
+                <h3 className="text-lg font-semibold text-steel-100 group-hover:text-accent-400 transition-colors mb-1">
                   {project.name}
                 </h3>
+
+                {isAdmin && (project.portal_customers?.name || project.customer?.name) && (
+                  <p className="text-xs text-accent-400 mb-1">
+                    {project.portal_customers?.name || project.customer?.name}
+                  </p>
+                )}
 
                 {project.description && (
                   <p className="text-steel-400 text-sm line-clamp-2 mb-4">

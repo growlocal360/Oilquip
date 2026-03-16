@@ -68,22 +68,44 @@ export async function middleware(request: NextRequest) {
       );
     }
 
-    const { data: portalUser } = await supabase
-      .from("portal_users")
+    // Allow admin users to access portal
+    const { data: admin } = await supabase
+      .from("approved_emails")
       .select("id")
       .eq("email", user.email)
-      .eq("active", true)
       .single();
 
-    if (!portalUser) {
-      return NextResponse.redirect(
-        new URL("/customer-portal?error=unauthorized", request.url)
-      );
+    if (!admin) {
+      const { data: portalUser } = await supabase
+        .from("portal_users")
+        .select("id")
+        .eq("email", user.email)
+        .eq("active", true)
+        .single();
+
+      if (!portalUser) {
+        return NextResponse.redirect(
+          new URL("/customer-portal?error=unauthorized", request.url)
+        );
+      }
     }
   }
 
   // Redirect logged-in portal users from login to dashboard
   if (request.nextUrl.pathname === "/customer-portal" && user) {
+    // Check if admin
+    const { data: admin } = await supabase
+      .from("approved_emails")
+      .select("id")
+      .eq("email", user.email)
+      .single();
+
+    if (admin) {
+      return NextResponse.redirect(
+        new URL("/customer-portal/dashboard", request.url)
+      );
+    }
+
     const { data: portalUser } = await supabase
       .from("portal_users")
       .select("id")

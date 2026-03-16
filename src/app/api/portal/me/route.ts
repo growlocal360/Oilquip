@@ -12,6 +12,22 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  // Check if user is an admin
+  const { data: admin } = await supabase
+    .from("approved_emails")
+    .select("id")
+    .eq("email", user.email)
+    .single();
+
+  if (admin) {
+    return NextResponse.json({
+      id: user.id,
+      email: user.email,
+      name: "Admin",
+      is_admin: true,
+    });
+  }
+
   const { data: portalUser, error } = await supabase
     .from("portal_users")
     .select("*, customer:portal_customers(*)")

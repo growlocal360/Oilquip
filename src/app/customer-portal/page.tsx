@@ -53,21 +53,30 @@ function PortalLoginForm() {
       return;
     }
 
-    // Check if user is a portal user
-    const { data: portalUser } = await supabase
-      .from("portal_users")
+    // Check if user is an admin (bypass portal_users check)
+    const { data: admin } = await supabase
+      .from("approved_emails")
       .select("id")
       .eq("email", email)
-      .eq("active", true)
       .single();
 
-    if (!portalUser) {
-      await supabase.auth.signOut();
-      setError(
-        "Your account is not authorized to access the customer portal."
-      );
-      setLoading(false);
-      return;
+    if (!admin) {
+      // Check if user is a portal user
+      const { data: portalUser } = await supabase
+        .from("portal_users")
+        .select("id")
+        .eq("email", email)
+        .eq("active", true)
+        .single();
+
+      if (!portalUser) {
+        await supabase.auth.signOut();
+        setError(
+          "Your account is not authorized to access the customer portal."
+        );
+        setLoading(false);
+        return;
+      }
     }
 
     router.push("/customer-portal/dashboard");
