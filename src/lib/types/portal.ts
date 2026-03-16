@@ -5,6 +5,7 @@ export interface PortalCustomer {
   contact_email: string | null;
   contact_phone: string | null;
   address: string | null;
+  logo_url: string | null;
   notes: string | null;
   created_at: string;
   updated_at: string;
@@ -19,6 +20,7 @@ export interface PortalCustomerInsert {
   contact_email?: string | null;
   contact_phone?: string | null;
   address?: string | null;
+  logo_url?: string | null;
   notes?: string | null;
 }
 

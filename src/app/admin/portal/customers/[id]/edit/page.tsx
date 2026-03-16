@@ -13,8 +13,10 @@ import {
   Users,
   FolderOpen,
   UserPlus,
+  Upload,
   X,
 } from "lucide-react";
+import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
 import type { PortalCustomer, PortalUser, PortalProject } from "@/lib/types";
 
@@ -36,6 +38,9 @@ export default function EditCustomerPage() {
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [logoUrl, setLogoUrl] = useState<string | null>(null);
+  const [logoFile, setLogoFile] = useState<File | null>(null);
+  const [logoPreview, setLogoPreview] = useState<string | null>(null);
   const [notes, setNotes] = useState("");
 
   // Related data
@@ -64,6 +69,8 @@ export default function EditCustomerPage() {
         setContactEmail(customer.contact_email || "");
         setContactPhone(customer.contact_phone || "");
         setAddress(customer.address || "");
+        setLogoUrl(customer.logo_url || null);
+        setLogoPreview(customer.logo_url || null);
         setNotes(customer.notes || "");
       }
 
@@ -93,6 +100,28 @@ export default function EditCustomerPage() {
 
     setSaving(true);
 
+    const supabase = createClient();
+    let finalLogoUrl = logoUrl;
+
+    if (logoFile) {
+      const ext = logoFile.name.split(".").pop();
+      const fileName = `logos/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+      const { error: uploadError } = await supabase.storage
+        .from("portal")
+        .upload(fileName, logoFile);
+
+      if (uploadError) {
+        alert("Failed to upload logo: " + uploadError.message);
+        setSaving(false);
+        return;
+      }
+
+      const { data: publicUrl } = supabase.storage
+        .from("portal")
+        .getPublicUrl(fileName);
+      finalLogoUrl = publicUrl.publicUrl;
+    }
+
     const response = await fetch(`/api/portal/customers/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -102,6 +131,7 @@ export default function EditCustomerPage() {
         contact_email: contactEmail || null,
         contact_phone: contactPhone || null,
         address: address || null,
+        logo_url: finalLogoUrl,
         notes: notes || null,
       }),
     });
@@ -317,6 +347,56 @@ export default function EditCustomerPage() {
           </div>
 
           <div className="space-y-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="bg-steel-900 border border-steel-700 rounded-xl p-6"
+            >
+              <label className="block text-sm font-medium text-steel-300 mb-3">
+                Company Logo
+              </label>
+              {logoPreview ? (
+                <div className="relative mb-3">
+                  <Image
+                    src={logoPreview}
+                    alt="Logo preview"
+                    width={200}
+                    height={200}
+                    className="w-full h-32 object-contain bg-steel-800 rounded-lg"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setLogoFile(null);
+                      setLogoPreview(null);
+                      setLogoUrl(null);
+                    }}
+                    className="absolute top-2 right-2 p-1 bg-steel-900/80 text-steel-400 hover:text-red-400 rounded-full transition-colors"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+              ) : (
+                <label className="flex flex-col items-center justify-center w-full h-32 bg-steel-800 border-2 border-dashed border-steel-600 hover:border-accent-500/50 rounded-lg cursor-pointer transition-colors mb-3">
+                  <Upload className="h-8 w-8 text-steel-500 mb-2" />
+                  <span className="text-sm text-steel-400">Upload logo</span>
+                  <span className="text-xs text-steel-500 mt-1">JPG, PNG, SVG, WebP</span>
+                  <input
+                    type="file"
+                    accept=".jpg,.jpeg,.png,.svg,.webp"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+                      setLogoFile(file);
+                      setLogoPreview(URL.createObjectURL(file));
+                    }}
+                    className="hidden"
+                  />
+                </label>
+              )}
+            </motion.div>
+
             <motion.button
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

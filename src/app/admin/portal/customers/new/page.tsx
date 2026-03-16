@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowLeft, Save } from "lucide-react";
+import { ArrowLeft, Save, Upload, X } from "lucide-react";
 import slugify from "slugify";
+import { createClient } from "@/lib/supabase/client";
 
 export default function NewCustomerPage() {
   const router = useRouter();
@@ -17,6 +19,20 @@ export default function NewCustomerPage() {
   const [contactPhone, setContactPhone] = useState("");
   const [address, setAddress] = useState("");
   const [notes, setNotes] = useState("");
+  const [logoFile, setLogoFile] = useState<File | null>(null);
+  const [logoPreview, setLogoPreview] = useState<string | null>(null);
+
+  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setLogoFile(file);
+    setLogoPreview(URL.createObjectURL(file));
+  };
+
+  const removeLogo = () => {
+    setLogoFile(null);
+    setLogoPreview(null);
+  };
 
   const handleNameChange = (value: string) => {
     setName(value);
@@ -31,6 +47,28 @@ export default function NewCustomerPage() {
 
     setSaving(true);
 
+    let logoUrl: string | null = null;
+
+    if (logoFile) {
+      const supabase = createClient();
+      const ext = logoFile.name.split(".").pop();
+      const fileName = `logos/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+      const { error: uploadError } = await supabase.storage
+        .from("portal")
+        .upload(fileName, logoFile);
+
+      if (uploadError) {
+        alert("Failed to upload logo: " + uploadError.message);
+        setSaving(false);
+        return;
+      }
+
+      const { data: publicUrl } = supabase.storage
+        .from("portal")
+        .getPublicUrl(fileName);
+      logoUrl = publicUrl.publicUrl;
+    }
+
     const response = await fetch("/api/portal/customers", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -40,6 +78,7 @@ export default function NewCustomerPage() {
         contact_email: contactEmail || null,
         contact_phone: contactPhone || null,
         address: address || null,
+        logo_url: logoUrl,
         notes: notes || null,
       }),
     });
@@ -180,6 +219,47 @@ export default function NewCustomerPage() {
           </div>
 
           <div className="space-y-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="bg-steel-900 border border-steel-700 rounded-xl p-6"
+            >
+              <label className="block text-sm font-medium text-steel-300 mb-3">
+                Company Logo
+              </label>
+              {logoPreview ? (
+                <div className="relative mb-3">
+                  <Image
+                    src={logoPreview}
+                    alt="Logo preview"
+                    width={200}
+                    height={200}
+                    className="w-full h-32 object-contain bg-steel-800 rounded-lg"
+                  />
+                  <button
+                    type="button"
+                    onClick={removeLogo}
+                    className="absolute top-2 right-2 p-1 bg-steel-900/80 text-steel-400 hover:text-red-400 rounded-full transition-colors"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+              ) : (
+                <label className="flex flex-col items-center justify-center w-full h-32 bg-steel-800 border-2 border-dashed border-steel-600 hover:border-accent-500/50 rounded-lg cursor-pointer transition-colors mb-3">
+                  <Upload className="h-8 w-8 text-steel-500 mb-2" />
+                  <span className="text-sm text-steel-400">Upload logo</span>
+                  <span className="text-xs text-steel-500 mt-1">JPG, PNG, SVG, WebP</span>
+                  <input
+                    type="file"
+                    accept=".jpg,.jpeg,.png,.svg,.webp"
+                    onChange={handleLogoChange}
+                    className="hidden"
+                  />
+                </label>
+              )}
+            </motion.div>
+
             <motion.button
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
