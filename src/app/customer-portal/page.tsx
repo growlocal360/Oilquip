@@ -231,6 +231,32 @@ function PortalLoginForm() {
             >
               {loading ? "Signing in..." : "Sign In"}
             </button>
+
+            <button
+              type="button"
+              onClick={async () => {
+                if (!email) {
+                  setError("Enter your email address first, then click Forgot Password.");
+                  return;
+                }
+                setLoading(true);
+                setError(null);
+                const supabase = createClient();
+                const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
+                  redirectTo: `${window.location.origin}/auth/callback?type=recovery`,
+                });
+                setLoading(false);
+                if (resetError) {
+                  setError(resetError.message);
+                } else {
+                  setError(null);
+                  alert("Password reset email sent! Check your inbox.");
+                }
+              }}
+              className="w-full text-sm text-accent-400 hover:text-accent-300 transition-colors"
+            >
+              Forgot your password?
+            </button>
           </form>
         )}
 
