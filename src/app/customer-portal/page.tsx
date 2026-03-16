@@ -35,13 +35,13 @@ function ScrollingLogoGallery({ customers }: { customers: CustomerOption[] }) {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {/* Gradient overlays for fade effect */}
-      <div className="absolute inset-0 bg-gradient-to-b from-steel-950 via-steel-950/60 to-steel-950 z-10" />
-      <div className="absolute inset-0 bg-gradient-to-r from-steel-950 via-transparent to-steel-950 z-10" />
+      <div className="absolute inset-0 bg-gradient-to-b from-steel-950/80 via-transparent to-steel-950/80 z-10" />
+      <div className="absolute inset-0 bg-gradient-to-r from-steel-950/70 via-transparent to-steel-950/70 z-10" />
 
       {/* Row 1 - scroll left */}
       <div className="absolute top-[10%] left-0 right-0">
         <motion.div
-          className="flex gap-12 items-center"
+          className="flex gap-16 items-center"
           animate={{ x: ["0%", "-33.33%"] }}
           transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
           style={{ width: "fit-content" }}
@@ -49,14 +49,14 @@ function ScrollingLogoGallery({ customers }: { customers: CustomerOption[] }) {
           {duplicated.map((c, i) => (
             <div
               key={`row1-${i}`}
-              className="flex-shrink-0 w-28 h-16 flex items-center justify-center opacity-15"
+              className="flex-shrink-0 w-44 h-24 flex items-center justify-center opacity-25"
             >
               <Image
                 src={c.logo_url!}
                 alt={c.name}
-                width={112}
-                height={64}
-                className="w-auto h-full max-h-12 object-contain brightness-0 invert"
+                width={176}
+                height={96}
+                className="w-auto h-full max-h-20 object-contain brightness-0 invert"
               />
             </div>
           ))}
@@ -66,7 +66,7 @@ function ScrollingLogoGallery({ customers }: { customers: CustomerOption[] }) {
       {/* Row 2 - scroll right */}
       <div className="absolute top-[35%] left-0 right-0">
         <motion.div
-          className="flex gap-12 items-center"
+          className="flex gap-16 items-center"
           animate={{ x: ["-33.33%", "0%"] }}
           transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
           style={{ width: "fit-content" }}
@@ -74,14 +74,14 @@ function ScrollingLogoGallery({ customers }: { customers: CustomerOption[] }) {
           {duplicated.map((c, i) => (
             <div
               key={`row2-${i}`}
-              className="flex-shrink-0 w-28 h-16 flex items-center justify-center opacity-10"
+              className="flex-shrink-0 w-44 h-24 flex items-center justify-center opacity-20"
             >
               <Image
                 src={c.logo_url!}
                 alt={c.name}
-                width={112}
-                height={64}
-                className="w-auto h-full max-h-12 object-contain brightness-0 invert"
+                width={176}
+                height={96}
+                className="w-auto h-full max-h-20 object-contain brightness-0 invert"
               />
             </div>
           ))}
@@ -91,7 +91,7 @@ function ScrollingLogoGallery({ customers }: { customers: CustomerOption[] }) {
       {/* Row 3 - scroll left slower */}
       <div className="absolute top-[60%] left-0 right-0">
         <motion.div
-          className="flex gap-12 items-center"
+          className="flex gap-16 items-center"
           animate={{ x: ["0%", "-33.33%"] }}
           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
           style={{ width: "fit-content" }}
@@ -99,14 +99,14 @@ function ScrollingLogoGallery({ customers }: { customers: CustomerOption[] }) {
           {duplicated.map((c, i) => (
             <div
               key={`row3-${i}`}
-              className="flex-shrink-0 w-28 h-16 flex items-center justify-center opacity-15"
+              className="flex-shrink-0 w-44 h-24 flex items-center justify-center opacity-25"
             >
               <Image
                 src={c.logo_url!}
                 alt={c.name}
-                width={112}
-                height={64}
-                className="w-auto h-full max-h-12 object-contain brightness-0 invert"
+                width={176}
+                height={96}
+                className="w-auto h-full max-h-20 object-contain brightness-0 invert"
               />
             </div>
           ))}
@@ -116,7 +116,7 @@ function ScrollingLogoGallery({ customers }: { customers: CustomerOption[] }) {
       {/* Row 4 - scroll right */}
       <div className="absolute top-[85%] left-0 right-0">
         <motion.div
-          className="flex gap-12 items-center"
+          className="flex gap-16 items-center"
           animate={{ x: ["-33.33%", "0%"] }}
           transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
           style={{ width: "fit-content" }}
@@ -124,14 +124,14 @@ function ScrollingLogoGallery({ customers }: { customers: CustomerOption[] }) {
           {duplicated.map((c, i) => (
             <div
               key={`row4-${i}`}
-              className="flex-shrink-0 w-28 h-16 flex items-center justify-center opacity-10"
+              className="flex-shrink-0 w-44 h-24 flex items-center justify-center opacity-20"
             >
               <Image
                 src={c.logo_url!}
                 alt={c.name}
-                width={112}
-                height={64}
-                className="w-auto h-full max-h-12 object-contain brightness-0 invert"
+                width={176}
+                height={96}
+                className="w-auto h-full max-h-20 object-contain brightness-0 invert"
               />
             </div>
           ))}
