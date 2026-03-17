@@ -18,6 +18,18 @@ export async function PUT(
 
   const body = await request.json();
 
+  // Get the access request details first
+  const { data: accessRequest } = await supabase
+    .from("portal_access_requests")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (!accessRequest) {
+    return NextResponse.json({ error: "Request not found" }, { status: 404 });
+  }
+
+  // Update the status
   const { data, error } = await supabase
     .from("portal_access_requests")
     .update({
@@ -30,6 +42,33 @@ export async function PUT(
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  // If approved, add the user to portal_users under the matching customer
+  if (body.status === "approved") {
+    // Find the customer by name
+    const { data: customer } = await supabase
+      .from("portal_customers")
+      .select("id")
+      .eq("name", accessRequest.company_name)
+      .single();
+
+    if (customer) {
+      // Check if portal user already exists
+      const { data: existingUser } = await supabase
+        .from("portal_users")
+        .select("id")
+        .eq("email", accessRequest.email)
+        .single();
+
+      if (!existingUser) {
+        await supabase.from("portal_users").insert({
+          customer_id: customer.id,
+          email: accessRequest.email,
+          name: accessRequest.name,
+        });
+      }
+    }
   }
 
   return NextResponse.json(data);
