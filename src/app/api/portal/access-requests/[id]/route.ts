@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { NextResponse } from "next/server";
 
 export async function PUT(
@@ -68,6 +69,12 @@ export async function PUT(
           name: accessRequest.name,
         });
       }
+
+      // Send invite email to create their Supabase Auth account
+      const adminClient = createAdminClient();
+      await adminClient.auth.admin.inviteUserByEmail(accessRequest.email, {
+        redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || "https://oilquip.vercel.app"}/auth/callback?type=recovery`,
+      });
     }
   }
 

@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { NextResponse } from "next/server";
 
 export async function GET(
@@ -55,6 +56,12 @@ export async function POST(
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
+
+  // Send invite email to create their Supabase Auth account
+  const adminClient = createAdminClient();
+  await adminClient.auth.admin.inviteUserByEmail(body.email, {
+    redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || "https://oilquip.vercel.app"}/auth/callback?type=recovery`,
+  });
 
   return NextResponse.json(data);
 }
