@@ -8,24 +8,27 @@ import Image from "next/image";
 import { ArrowLeft, Heart, Shield, Users, Wrench, Award, Smile } from "lucide-react";
 
 const milestones = [
-  { year: "1960", title: "Founded", description: "Oilquip incorporated in Lake Charles, Louisiana — a family business from day one.", image: "/timeline/timeline-img1960.jpg" },
-  { year: "1971", title: "Growing Roots", description: "Expanded into fluid conditioning and hydraulic system design for the Gulf Coast petrochemical industry.", image: "/timeline/timeline-img1971.jpg" },
-  { year: "1973", title: "Building Momentum", description: "Deepened relationships with major petrochemical facilities across the Gulf Coast region.", image: "/timeline/timeline-img1973.jpg" },
-  { year: "1976", title: "Expanding Reach", description: "Grew our distribution network and service capabilities to meet increasing demand.", image: "/timeline/timeline-img1976.jpg" },
-  { year: "1977", title: "Strengthening the Foundation", description: "Invested in our team and infrastructure to support long-term growth.", image: "/timeline/timeline-img1977.jpg" },
-  { year: "1978", title: "Industry Recognition", description: "Earned recognition as a trusted partner in the fluid power industry.", image: "/timeline/timeline-img1978.jpg" },
-  { year: "1979", title: "Decade of Growth", description: "Closed out the 70s as a well-established force in Gulf Coast fluid power solutions.", image: "/timeline/timeline-img1979.jpg" },
-  { year: "1981", title: "New Decade, Same Grit", description: "Entered the 80s with expanded capabilities and a growing reputation for engineering excellence.", image: "/timeline/timeline-img1981.webp" },
-  { year: "1985", title: "Engineering Focus", description: "Began custom engineering solutions — moving beyond distribution into full system design and integration.", image: "/timeline/timeline-img1985.jpg" },
-  { year: "1988", title: "Innovation & Integration", description: "Pioneered integrated hydraulic system solutions for complex industrial applications.", image: "/timeline/timeline-img1988.webp" },
-  { year: "1994", title: "Power Generation Era", description: "Became one of only three Moog authorized integrators in the country.", image: "/timeline/timeline-img1994.webp" },
-  { year: "1998", title: "Nationwide Service", description: "Expanded our power generation services to facilities across the nation.", image: "/timeline/timeline-img1998.webp" },
-  { year: "2005", title: "Weathering the Storm", description: "Proved our resilience through Hurricane Rita — showing up for our customers when it mattered most.", image: "/timeline/timeline-img2005.webp" },
-  { year: "2006", title: "Rebuilding Stronger", description: "Came back stronger, reinforcing our commitment to the Lake Charles community.", image: "/timeline/timeline-img2006.webp" },
-  { year: "2007", title: "Next Generation", description: "The next generation stepped in, carrying forward the same values with fresh energy and modern capability.", image: "/timeline/timeline-img2007.webp" },
-  { year: "2011", title: "Continued Growth", description: "Expanded our service offerings and strengthened partnerships with key manufacturers.", image: "/timeline/timeline-img2011.webp" },
-  { year: "2014", title: "Modern Capabilities", description: "Invested in state-of-the-art equipment and technology to serve our customers better.", image: "/timeline/timeline-img2014.webp" },
-  { year: "2024", title: "65 Years Strong", description: "Still family-owned, still Louisiana-proud. Solving the industry's most complicated fluid power problems — one job at a time.", image: "/timeline/timeline-img2024.png" },
+  { year: "1960", description: "Founded by Richard Yoder as a service station maintenance company", image: "/timeline/timeline-img1960.jpg" },
+  { year: "1971", description: "Entered the field of fluid power and wood products", image: "/timeline/timeline-img1971.jpg" },
+  { year: "1973", description: "Became full line distributor for Oilgear and Atlas, formally known as Sawyer Machine Works", image: "/timeline/timeline-img1973.jpg" },
+  { year: "1976", description: "Constructed on-site fabrication shop", image: "/timeline/timeline-img1976.jpg" },
+  { year: "1977", description: "Began production of balers for the rubber market", image: "/timeline/timeline-img1977.jpg" },
+  { year: "1978", description: "Built on-site electrical shop", image: "/timeline/timeline-img1978.jpg" },
+  { year: "1979", description: "Integrated our first controls system", image: "/timeline/timeline-img1979.jpg" },
+  { year: "1981", description: "Opened first satellite office in Baton Rouge, Louisiana", image: "/timeline/timeline-img1981.webp" },
+  { year: "1985", description: "Completed the first engineering building", image: "/timeline/timeline-img1985.jpg" },
+  { year: "1985", description: "Became full line distributor for PTI", image: "/timeline/timeline-img1985b.webp" },
+  { year: "1988", description: "Opened second satellite office in Shreveport, Louisiana", image: "/timeline/timeline-img1988.webp" },
+  { year: "1994", description: "Became full line distributor for MTS Sensors", image: "/timeline/timeline-img1994.webp" },
+  { year: "1998", description: "Became full line distributor for Moog", image: "/timeline/timeline-img1998.webp" },
+  { year: "2005", description: "Entered the power generation market", image: "/timeline/timeline-img2005.webp" },
+  { year: "2006", description: "Became full line distributor for Delta Computer Systems", image: "/timeline/timeline-img2006.webp" },
+  { year: "2007", description: "Completed new 30,000 square foot fabrication shop", image: "/timeline/timeline-img2007.webp" },
+  { year: "2011", description: "Became full line distributor for Numatics", image: "/timeline/timeline-img2011.webp" },
+  { year: "2011", description: "Expanded engineering department and moved into new engineering building", image: "/timeline/timeline-img2011b.webp" },
+  { year: "2014", description: "Became full line distributor for CC Jensen", image: "/timeline/timeline-img2014.webp" },
+  { year: "2014", description: "Achieved Moog authorized integrator status for power generation actuators", image: "/timeline/timeline-img2014b.webp" },
+  { year: "2024", description: "Became HyPro distributor, Atos distributor, Atten2 distributor.", image: "/timeline/timeline-img2024.png" },
 ];
 
 const values = [
@@ -209,7 +212,7 @@ export default function AboutPage() {
                       <div className="relative h-48 w-full">
                         <Image
                           src={milestone.image}
-                          alt={`${milestone.year} - ${milestone.title}`}
+                          alt={`${milestone.year} - ${milestone.description}`}
                           fill
                           className="object-cover"
                         />
@@ -217,10 +220,7 @@ export default function AboutPage() {
                     )}
                     <div className="p-6">
                       <span className="text-accent-400 font-bold text-lg">{milestone.year}</span>
-                      <h3 className="text-xl font-semibold text-steel-100 mt-1 mb-2">
-                        {milestone.title}
-                      </h3>
-                      <p className="text-steel-400">{milestone.description}</p>
+                      <p className="text-steel-400 mt-2">{milestone.description}</p>
                     </div>
                   </div>
                 </div>
