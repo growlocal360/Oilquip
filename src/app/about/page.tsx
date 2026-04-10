@@ -8,12 +8,24 @@ import Image from "next/image";
 import { ArrowLeft, Heart, Shield, Users, Wrench, Award, Smile } from "lucide-react";
 
 const milestones = [
-  { year: "1960", title: "Founded", description: "Oilquip incorporated in Lake Charles, Louisiana — a family business from day one." },
-  { year: "1970s", title: "Growing Roots", description: "Expanded into fluid conditioning and hydraulic system design for the Gulf Coast petrochemical industry." },
-  { year: "1980s", title: "Engineering Focus", description: "Began custom engineering solutions — moving beyond distribution into full system design and integration." },
-  { year: "1990s", title: "Power Generation", description: "Became one of only three Moog authorized integrators in the country, serving power generation facilities nationwide." },
-  { year: "2000s", title: "Next Generation", description: "The next generation stepped in, carrying forward the same values with fresh energy and modern capability." },
-  { year: "Today", title: "65 Years Strong", description: "Still family-owned, still Louisiana-proud. Solving the industry's most complicated fluid power problems — one job at a time." },
+  { year: "1960", title: "Founded", description: "Oilquip incorporated in Lake Charles, Louisiana — a family business from day one.", image: "/timeline/timeline-img1960.jpg" },
+  { year: "1971", title: "Growing Roots", description: "Expanded into fluid conditioning and hydraulic system design for the Gulf Coast petrochemical industry.", image: "/timeline/timeline-img1971.jpg" },
+  { year: "1973", title: "Building Momentum", description: "Deepened relationships with major petrochemical facilities across the Gulf Coast region.", image: "/timeline/timeline-img1973.jpg" },
+  { year: "1976", title: "Expanding Reach", description: "Grew our distribution network and service capabilities to meet increasing demand.", image: "/timeline/timeline-img1976.jpg" },
+  { year: "1977", title: "Strengthening the Foundation", description: "Invested in our team and infrastructure to support long-term growth.", image: "/timeline/timeline-img1977.jpg" },
+  { year: "1978", title: "Industry Recognition", description: "Earned recognition as a trusted partner in the fluid power industry.", image: "/timeline/timeline-img1978.jpg" },
+  { year: "1979", title: "Decade of Growth", description: "Closed out the 70s as a well-established force in Gulf Coast fluid power solutions.", image: "/timeline/timeline-img1979.jpg" },
+  { year: "1981", title: "New Decade, Same Grit", description: "Entered the 80s with expanded capabilities and a growing reputation for engineering excellence.", image: "/timeline/timeline-img1981.webp" },
+  { year: "1985", title: "Engineering Focus", description: "Began custom engineering solutions — moving beyond distribution into full system design and integration.", image: "/timeline/timeline-img1985.jpg" },
+  { year: "1988", title: "Innovation & Integration", description: "Pioneered integrated hydraulic system solutions for complex industrial applications.", image: "/timeline/timeline-img1988.webp" },
+  { year: "1994", title: "Power Generation Era", description: "Became one of only three Moog authorized integrators in the country.", image: "/timeline/timeline-img1994.webp" },
+  { year: "1998", title: "Nationwide Service", description: "Expanded our power generation services to facilities across the nation.", image: "/timeline/timeline-img1998.webp" },
+  { year: "2005", title: "Weathering the Storm", description: "Proved our resilience through Hurricane Rita — showing up for our customers when it mattered most.", image: "/timeline/timeline-img2005.webp" },
+  { year: "2006", title: "Rebuilding Stronger", description: "Came back stronger, reinforcing our commitment to the Lake Charles community.", image: "/timeline/timeline-img2006.webp" },
+  { year: "2007", title: "Next Generation", description: "The next generation stepped in, carrying forward the same values with fresh energy and modern capability.", image: "/timeline/timeline-img2007.webp" },
+  { year: "2011", title: "Continued Growth", description: "Expanded our service offerings and strengthened partnerships with key manufacturers.", image: "/timeline/timeline-img2011.webp" },
+  { year: "2014", title: "Modern Capabilities", description: "Invested in state-of-the-art equipment and technology to serve our customers better.", image: "/timeline/timeline-img2014.webp" },
+  { year: "2024", title: "65 Years Strong", description: "Still family-owned, still Louisiana-proud. Solving the industry's most complicated fluid power problems — one job at a time.", image: "/timeline/timeline-img2024.png" },
 ];
 
 const values = [
@@ -182,7 +194,7 @@ export default function AboutPage() {
                 key={milestone.year}
                 initial={{ opacity: 0, y: 30 }}
                 animate={timelineInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                transition={{ duration: 0.6, delay: Math.min(index * 0.1, 0.6) }}
                 className={`relative flex items-start mb-12 last:mb-0 ${
                   index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
                 }`}
@@ -192,12 +204,24 @@ export default function AboutPage() {
 
                 {/* Content */}
                 <div className={`ml-16 lg:ml-0 lg:w-1/2 ${index % 2 === 0 ? "lg:pr-16" : "lg:pl-16"}`}>
-                  <div className="bg-steel-900 border border-steel-700 rounded-xl p-6">
-                    <span className="text-accent-400 font-bold text-lg">{milestone.year}</span>
-                    <h3 className="text-xl font-semibold text-steel-100 mt-1 mb-2">
-                      {milestone.title}
-                    </h3>
-                    <p className="text-steel-400">{milestone.description}</p>
+                  <div className="bg-steel-900 border border-steel-700 rounded-xl overflow-hidden">
+                    {milestone.image && (
+                      <div className="relative h-48 w-full">
+                        <Image
+                          src={milestone.image}
+                          alt={`${milestone.year} - ${milestone.title}`}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    )}
+                    <div className="p-6">
+                      <span className="text-accent-400 font-bold text-lg">{milestone.year}</span>
+                      <h3 className="text-xl font-semibold text-steel-100 mt-1 mb-2">
+                        {milestone.title}
+                      </h3>
+                      <p className="text-steel-400">{milestone.description}</p>
+                    </div>
                   </div>
                 </div>
               </motion.div>
