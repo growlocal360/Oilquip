@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Cpu, Zap, Droplets, Wrench, ArrowRight } from "lucide-react";
+import { Cpu, Zap, Droplets, Wrench, Package, ArrowRight } from "lucide-react";
 
 const services = [
   {
@@ -41,6 +41,15 @@ const services = [
     href: "/services/repairs-upgrades",
     highlight: "Factory Specs",
   },
+  {
+    icon: Package,
+    title: "Distribution",
+    tagline: "The Brands You Trust",
+    description:
+      "Authorized distributor for industry-leading manufacturers. From pumps to valves to complete systems — we stock and supply what you need.",
+    href: "/products",
+    highlight: "Authorized Dealer",
+  },
 ];
 
 export default function ServicesPage() {
@@ -78,12 +87,14 @@ export default function ServicesPage() {
           <div className="grid md:grid-cols-2 gap-8">
             {services.map((service, index) => {
               const Icon = service.icon;
+              const isLast = index === services.length - 1 && services.length % 2 !== 0;
               return (
                 <motion.div
                   key={service.title}
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className={isLast ? "md:col-span-2 md:max-w-xl md:mx-auto md:w-full" : ""}
                 >
                   <Link href={service.href} className="group block h-full">
                     <div className="relative h-full bg-steel-900/50 border border-steel-700 hover:border-accent-500/50 rounded-xl p-8 lg:p-10 transition-all duration-300 overflow-hidden">
