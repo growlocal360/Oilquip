@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export default function About() {
   const ref = useRef(null);
@@ -47,6 +49,14 @@ export default function About() {
                 excuses. We get it done.
               </p>
             </div>
+
+            <Link
+              href="/about"
+              className="group inline-flex items-center mt-8 text-accent-400 hover:text-accent-300 font-semibold transition-colors"
+            >
+              Read Our Story
+              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
 
             {/* Timeline markers */}
             <div className="mt-10 flex items-center space-x-8">

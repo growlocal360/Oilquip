@@ -9,7 +9,7 @@ interface BrandCardProps {
 
 export default function BrandCard({ brand }: BrandCardProps) {
   return (
-    <Link href={`/brands/${brand.slug}`} className="group block">
+    <Link href={`/products/${brand.slug}`} className="group block">
       <div className="h-full bg-steel-900/50 border border-steel-700 hover:border-accent-500/50 rounded-xl overflow-hidden transition-all duration-300">
         {/* Logo area */}
         <div className="relative h-40 bg-white flex items-center justify-center p-6">

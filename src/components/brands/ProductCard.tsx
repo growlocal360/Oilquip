@@ -10,7 +10,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ product, brandSlug }: ProductCardProps) {
   return (
-    <Link href={`/brands/${brandSlug}/${product.slug}`} className="group block">
+    <Link href={`/products/${brandSlug}/${product.slug}`} className="group block">
       <div className="h-full bg-steel-900/50 border border-steel-700 hover:border-accent-500/50 rounded-xl overflow-hidden transition-all duration-300">
         <div className="relative h-48 bg-steel-800 flex items-center justify-center">
           {product.image_url ? (

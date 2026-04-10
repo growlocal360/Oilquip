@@ -110,10 +110,10 @@ export default function Navigation() {
             </div>
 
             <Link
-              href="/brands"
+              href="/products"
               className="px-4 py-2 text-steel-300 hover:text-accent-400 transition-colors font-medium"
             >
-              Brands
+              Products
             </Link>
             <Link
               href="/news"
@@ -238,11 +238,11 @@ export default function Navigation() {
               ))}
 
               <Link
-                href="/brands"
+                href="/products"
                 onClick={() => setIsOpen(false)}
                 className="block px-4 py-3 text-steel-300 hover:text-white hover:bg-steel-900 rounded-lg transition-colors"
               >
-                Brands
+                Products
               </Link>
               <Link
                 href="/news"

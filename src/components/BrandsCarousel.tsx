@@ -88,7 +88,7 @@ export default function BrandsCarousel() {
                   key={brand.id}
                   className="flex-[0_0_33.33%] sm:flex-[0_0_25%] md:flex-[0_0_20%] lg:flex-[0_0_14.28%] min-w-0 px-3"
                 >
-                  <Link href={`/brands/${brand.slug}`}>
+                  <Link href={`/products/${brand.slug}`}>
                     <div className="bg-gray-50 border border-gray-200 rounded-xl p-6 h-24 flex items-center justify-center hover:border-accent-400 hover:shadow-md transition-all">
                       {brand.logo_url ? (
                         <Image
@@ -148,10 +148,10 @@ export default function BrandsCarousel() {
         {/* View All Link */}
         <div className="text-center mt-8">
           <Link
-            href="/brands"
+            href="/products"
             className="inline-flex items-center text-accent-500 hover:text-accent-600 font-semibold transition-colors"
           >
-            View All Brands
+            View All Products
             <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
         </div>
