@@ -11,7 +11,7 @@ export default function Hero() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="/design-engineering/oilquip-design-engineering-services.jpg"
+          src="/design-engineering/oilquip-design-engineering-services-hero.jpg"
           alt="Oilquip Engineering Services"
           fill
           className="object-cover object-center"
