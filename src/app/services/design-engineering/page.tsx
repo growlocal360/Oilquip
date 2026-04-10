@@ -132,7 +132,7 @@ export default function DesignEngineeringPage() {
   return (
     <div className="bg-steel-950">
       {/* Hero Section with Background Image */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden min-h-[70vh] flex items-center">
+      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/design-engineering/oilquip-design-engineering-services-hero.jpg"
