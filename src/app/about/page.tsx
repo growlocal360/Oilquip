@@ -1,11 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useInView } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Heart, Shield, Users, Wrench, Award, Smile } from "lucide-react";
+import { Heart, Shield, Users, Wrench, Award, Smile, X } from "lucide-react";
+import { AnimatePresence } from "framer-motion";
 
 const milestones = [
   { year: "1960", description: "Founded by Richard Yoder as a service station maintenance company", image: "/timeline/timeline-img1960.jpg" },
@@ -32,12 +33,12 @@ const milestones = [
 ];
 
 const values = [
-  { icon: Heart, title: "Customer Focused", description: "It's not about us, never has been. We build relationships on old-school trust." },
-  { icon: Shield, title: "Trust is a Must", description: "The bedrock of everything. Earned through honesty, transparency, and follow-through." },
-  { icon: Users, title: "It's My Job", description: "Full ownership. We treat your challenges as our own — no finger pointing, no excuses." },
-  { icon: Wrench, title: "Competency Is King", description: "Being good is not good enough. We are obsessed with genuine mastery of our craft." },
-  { icon: Award, title: "Flexibility", description: "We bend so you don't break. Adaptable and responsive to your unique needs." },
-  { icon: Smile, title: "Work Should Be Enjoyable", description: "Loving what you do and who you do it with. Life's too short for anything less." },
+  { icon: Heart, title: "Customer Focused", description: "It's not about us, never has been. We build relationships on old-school trust.", fullDescription: "At Oilquip, being customer-focused means putting you first, always. We're dedicated to understanding what you need and going the extra mile to deliver. It's about being there for you, listening, and making sure our solutions fit perfectly. Your success is our success, and we're passionate about building a relationship based on old-school trust with unwavering support. It's not about us, never has been, never will be. We are grateful for the work you give us and hope to continue to earn that work." },
+  { icon: Shield, title: "Trust is a Must", description: "The bedrock of everything. Earned through honesty, transparency, and follow-through.", fullDescription: "At Oilquip, \"Trust is a Must\" is our unwavering commitment to you. We believe that trust is earned through honesty, transparency, and consistent reliability. We're dedicated to keeping our promises and always having your back, no matter what. Trust is the bedrock of our relationship, and we're fiercely committed to making you feel secure and confident in choosing us. With Oilquip, you know you can always count on us." },
+  { icon: Users, title: "It's My Job", description: "Full ownership. We treat your challenges as our own — no finger pointing, no excuses.", fullDescription: "At Oilquip, \"It's my job\" means taking personal responsibility and pride in everything we do for you. It's about owning our tasks and going above and beyond to meet your needs. Each of us is dedicated to ensuring your success, treating your challenges as our own, and being proactive in finding solutions. With Oilquip, you're working with a team that sees your goals as our mission with full ownership." },
+  { icon: Wrench, title: "Competency Is King", description: "Being good is not good enough. We are obsessed with genuine mastery of our craft.", fullDescription: "At Oilquip, \"Competency is King\" means excellence in everything we do. We are obsessed with improvement, innovation, and the endless pursuit of genuine mastery within our fields. This means seeing what others can't see, or refuse to see, then solving those issues against all challenges. Being good is not good enough." },
+  { icon: Award, title: "Flexibility", description: "We bend so you don't break. Adaptable and responsive to your unique needs.", fullDescription: "At Oilquip, \"Flexibility\" means being adaptable and responsive to your unique needs and challenges. We embrace change and are always ready to pivot to find the best solutions for you. Our commitment to flexibility ensures that we can provide personalized service, innovative approaches, and swift adjustments to meet your evolving needs. With Oilquip, you get a partner who is always ready to tailor our expertise to help you achieve your goals, no matter how complex or dynamic the situation. We bend so you don't break." },
+  { icon: Smile, title: "Work Should Be Enjoyable", description: "Loving what you do and who you do it with. Life's too short for anything less.", fullDescription: "At Oilquip, \"Work Should Be Enjoyable\" means loving what you do and who you do it with. We create a workplace where passion and camaraderie are at the heart of everything. We believe that when our team enjoys their work and supports each other, it shines through in the exceptional service we provide to you. We cultivate a positive, collaborative environment where creativity and innovation can thrive. With Oilquip, you're partnering with people who love their jobs and are dedicated to making a positive impact together every day." },
 ];
 
 export default function AboutPage() {
@@ -45,6 +46,7 @@ export default function AboutPage() {
   const storyRef = useRef(null);
   const timelineRef = useRef(null);
   const valuesRef = useRef(null);
+  const [modalIndex, setModalIndex] = useState<number | null>(null);
   const heroInView = useInView(heroRef, { once: true });
   const storyInView = useInView(storyRef, { once: true, margin: "-100px" });
   const timelineInView = useInView(timelineRef, { once: true, margin: "-100px" });
@@ -260,7 +262,8 @@ export default function AboutPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={valuesInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-steel-800/50 border border-steel-700 rounded-xl p-6 hover:border-accent-500/30 transition-colors"
+                  onClick={() => setModalIndex(index)}
+                  className="bg-steel-800/50 border border-steel-700 rounded-xl p-6 hover:border-accent-500/30 transition-colors cursor-pointer"
                 >
                   <div className="p-3 bg-accent-500/10 rounded-xl w-fit mb-4">
                     <Icon className="h-6 w-6 text-accent-500" />
@@ -276,6 +279,55 @@ export default function AboutPage() {
             })}
           </div>
         </div>
+
+        {/* Values Modal */}
+        <AnimatePresence>
+          {modalIndex !== null && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-4"
+              onClick={() => setModalIndex(null)}
+            >
+              <div className="absolute inset-0 bg-steel-950/80 backdrop-blur-sm" />
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                transition={{ duration: 0.3 }}
+                onClick={(e) => e.stopPropagation()}
+                className="relative bg-steel-900 border border-steel-700 rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto"
+              >
+                <button
+                  onClick={() => setModalIndex(null)}
+                  className="absolute top-4 right-4 p-2 text-steel-400 hover:text-steel-200 hover:bg-steel-800 rounded-lg transition-colors z-10"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+                <div className="p-8 lg:p-10">
+                  {(() => {
+                    const value = values[modalIndex];
+                    const Icon = value.icon;
+                    return (
+                      <>
+                        <div className="w-16 h-16 bg-accent-500/20 rounded-xl flex items-center justify-center mb-6">
+                          <Icon className="h-8 w-8 text-accent-500" />
+                        </div>
+                        <h3 className="text-2xl lg:text-3xl font-bold text-steel-100 mb-6">
+                          {value.title}
+                        </h3>
+                        <p className="text-steel-300 text-lg leading-relaxed">
+                          {value.fullDescription}
+                        </p>
+                      </>
+                    );
+                  })()}
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </section>
 
       {/* CTA */}
