@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import {
@@ -10,6 +10,7 @@ import {
   Briefcase,
   Shield,
   Smile,
+  X,
 } from "lucide-react";
 
 const values = [
@@ -18,6 +19,8 @@ const values = [
     title: "Customer Focused",
     description:
       "It's not about us, never has been. We build relationships on old-school trust.",
+    fullDescription:
+      "At Oilquip, being customer-focused means putting you first, always. We're dedicated to understanding what you need and going the extra mile to deliver. It's about being there for you, listening, and making sure our solutions fit perfectly. Your success is our success, and we're passionate about building a relationship based on old-school trust with unwavering support. It's not about us, never has been, never will be. We are grateful for the work you give us and hope to continue to earn that work.",
     color: "accent",
   },
   {
@@ -25,6 +28,8 @@ const values = [
     title: "Flexibility",
     description:
       "We bend so you don't break. Adaptable and responsive to unique needs.",
+    fullDescription:
+      'At Oilquip, "Flexibility" means being adaptable and responsive to your unique needs and challenges. We embrace change and are always ready to pivot to find the best solutions for you. Our commitment to flexibility ensures that we can provide personalized service, innovative approaches, and swift adjustments to meet your evolving needs. With Oilquip, you get a partner who is always ready to tailor our expertise to help you achieve your goals, no matter how complex or dynamic the situation. We bend so you don\'t break.',
     color: "cyan",
   },
   {
@@ -32,6 +37,8 @@ const values = [
     title: "Competency Is King",
     description:
       "Being good is not good enough. We are obsessed with genuine mastery.",
+    fullDescription:
+      'At Oilquip, "Competency is King" means excellence in everything we do. We are obsessed with improvement, innovation, and the endless pursuit of genuine mastery within our fields. This means seeing what others can\'t see, or refuse to see, then solving those issues against all challenges. Being good is not good enough.',
     color: "accent",
   },
   {
@@ -39,6 +46,8 @@ const values = [
     title: "It's My Job",
     description:
       "Full ownership. We treat your challenges as our own.",
+    fullDescription:
+      'At Oilquip, "It\'s my job" means taking personal responsibility and pride in everything we do for you. It\'s about owning our tasks and going above and beyond to meet your needs. Each of us is dedicated to ensuring your success, treating your challenges as our own, and being proactive in finding solutions. With Oilquip, you\'re working with a team that sees your goals as our mission with full ownership.',
     color: "cyan",
   },
   {
@@ -46,6 +55,8 @@ const values = [
     title: "Trust is a Must",
     description:
       "The bedrock of our relationship. Earned through honesty and transparency.",
+    fullDescription:
+      'At Oilquip, "Trust is a Must" is our unwavering commitment to you. We believe that trust is earned through honesty, transparency, and consistent reliability. We\'re dedicated to keeping our promises and always having your back, no matter what. Trust is the bedrock of our relationship, and we\'re fiercely committed to making you feel secure and confident in choosing us. With Oilquip, you know you can always count on us.',
     color: "accent",
   },
   {
@@ -53,6 +64,8 @@ const values = [
     title: "Work Should Be Enjoyable",
     description:
       "Loving what you do and who you do it with.",
+    fullDescription:
+      'At Oilquip, "Work Should Be Enjoyable" means loving what you do and who you do it with. We create a workplace where passion and camaraderie are at the heart of everything. We believe that when our team enjoys their work and supports each other, it shines through in the exceptional service we provide to you. We cultivate a positive, collaborative environment where creativity and innovation can thrive. With Oilquip, you\'re partnering with people who love their jobs and are dedicated to making a positive impact together every day.',
     color: "cyan",
   },
 ];
@@ -61,6 +74,7 @@ export default function CoreValues() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [modalIndex, setModalIndex] = useState<number | null>(null);
 
   return (
     <section id="values" className="relative py-24 lg:py-32 bg-steel-950">
@@ -120,9 +134,7 @@ export default function CoreValues() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 onMouseEnter={() => setActiveIndex(index)}
                 onMouseLeave={() => setActiveIndex(null)}
-                onClick={() =>
-                  setActiveIndex(isActive ? null : index)
-                }
+                onClick={() => setModalIndex(index)}
                 className={`
                   relative group cursor-pointer
                   bg-steel-900/50 border ${colorClasses.border} ${colorClasses.hoverBorder}
@@ -206,6 +218,67 @@ export default function CoreValues() {
           &ldquo;No excuses, just rolling up our sleeves.&rdquo;
         </motion.p>
       </div>
+
+      {/* Modal */}
+      <AnimatePresence>
+        {modalIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            onClick={() => setModalIndex(null)}
+          >
+            {/* Backdrop */}
+            <div className="absolute inset-0 bg-steel-950/80 backdrop-blur-sm" />
+
+            {/* Modal Content */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.3 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative bg-steel-900 border border-steel-700 rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto"
+            >
+              {/* Close button */}
+              <button
+                onClick={() => setModalIndex(null)}
+                className="absolute top-4 right-4 p-2 text-steel-400 hover:text-steel-200 hover:bg-steel-800 rounded-lg transition-colors z-10"
+              >
+                <X className="h-5 w-5" />
+              </button>
+
+              <div className="p-8 lg:p-10">
+                {/* Icon */}
+                {(() => {
+                  const value = values[modalIndex];
+                  const Icon = value.icon;
+                  const colorClasses =
+                    value.color === "accent"
+                      ? { iconBg: "bg-accent-500/20", iconColor: "text-accent-500" }
+                      : { iconBg: "bg-accent-400/20", iconColor: "text-accent-400" };
+                  return (
+                    <>
+                      <div
+                        className={`w-16 h-16 ${colorClasses.iconBg} rounded-xl flex items-center justify-center mb-6`}
+                      >
+                        <Icon className={`h-8 w-8 ${colorClasses.iconColor}`} />
+                      </div>
+                      <h3 className="text-2xl lg:text-3xl font-bold text-steel-100 mb-6">
+                        {value.title}
+                      </h3>
+                      <p className="text-steel-300 text-lg leading-relaxed">
+                        {value.fullDescription}
+                      </p>
+                    </>
+                  );
+                })()}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
