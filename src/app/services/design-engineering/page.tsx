@@ -533,6 +533,22 @@ export default function DesignEngineeringPage() {
               )
             )}
           </motion.div>
+
+          {/* Certification Logos Image */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-12 flex justify-center"
+          >
+            <Image
+              src="/design-engineering/design-engineering-certifications.png"
+              alt="CSA, cULus Listed, UL, DNV, IECEx, ATEX Certifications"
+              width={900}
+              height={150}
+              className="w-auto max-h-28 object-contain"
+            />
+          </motion.div>
         </div>
       </section>
 
