@@ -25,6 +25,7 @@ const resources = [
   { name: "Logos", href: "/resources/logos" },
   { name: "Brand Guide", href: "/resources/brand-guide" },
   { name: "Brochures", href: "/resources/brochures" },
+  { name: "Customer Portal", href: "/customer-portal" },
 ];
 
 export default function Footer() {
