@@ -5,10 +5,17 @@ import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowLeft, Save, Upload, X, Plus, Minus, FileText, RefreshCw } from "lucide-react";
+import { ArrowLeft, Save, Upload, X, Plus, Minus, FileText, Download, Trash2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import slugify from "slugify";
-import type { Brand, BrandProduct } from "@/lib/types";
+import type { Brand, ProductResource } from "@/lib/types";
+
+function formatFileSize(bytes: number | null): string {
+  if (!bytes) return "";
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
 import type { JSONContent } from "@tiptap/react";
 import RichTextEditor from "@/components/editor/RichTextEditor";
 
@@ -18,23 +25,26 @@ export default function EditProductPage() {
   const brandId = params.id as string;
   const productId = params.productId as string;
   const imageInputRef = useRef<HTMLInputElement>(null);
-  const datasheetInputRef = useRef<HTMLInputElement>(null);
+  const resourceInputRef = useRef<HTMLInputElement>(null);
 
   const [brand, setBrand] = useState<Brand | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
-  const [uploadingDatasheet, setUploadingDatasheet] = useState(false);
   const [name, setName] = useState("");
   const [slug, setSlug] = useState("");
   const [modelNumber, setModelNumber] = useState("");
   const [description, setDescription] = useState<JSONContent | null>(null);
   const [imageUrl, setImageUrl] = useState("");
-  const [datasheetUrl, setDatasheetUrl] = useState("");
-  const [datasheetName, setDatasheetName] = useState("");
   const [specs, setSpecs] = useState<{ key: string; value: string }[]>([]);
   const [published, setPublished] = useState(true);
   const [displayOrder, setDisplayOrder] = useState(0);
+
+  // Resources
+  const [resources, setResources] = useState<ProductResource[]>([]);
+  const [newResourceTitle, setNewResourceTitle] = useState("");
+  const [uploadingResource, setUploadingResource] = useState(false);
+  const [deletingResourceId, setDeletingResourceId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -71,7 +81,6 @@ export default function EditProductPage() {
       setModelNumber(product.model_number || "");
       setDescription(product.description || null);
       setImageUrl(product.image_url || "");
-      setDatasheetUrl(product.datasheet_url || "");
       setPublished(product.published);
       setDisplayOrder(product.display_order);
 
@@ -84,11 +93,14 @@ export default function EditProductPage() {
         setSpecs(specsArray);
       }
 
-      // Extract datasheet filename
-      if (product.datasheet_url) {
-        const urlParts = product.datasheet_url.split("/");
-        setDatasheetName(urlParts[urlParts.length - 1]);
-      }
+      // Fetch product resources
+      const { data: resourcesData } = await supabase
+        .from("product_resources")
+        .select("*")
+        .eq("product_id", productId)
+        .order("display_order", { ascending: true });
+
+      setResources(resourcesData || []);
 
       setLoading(false);
     };
@@ -133,47 +145,76 @@ export default function EditProductPage() {
     setUploadingImage(false);
   };
 
-  const handleDatasheetChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setUploadingDatasheet(true);
-    setDatasheetName(file.name);
-
-    try {
-      const supabase = createClient();
-      const fileExt = file.name.split(".").pop();
-      const uniqueName = `datasheets/${Date.now()}-${Math.random().toString(36).substring(2, 11)}.${fileExt}`;
-
-      const { error } = await supabase.storage
-        .from("brands")
-        .upload(uniqueName, file);
-
-      if (error) throw error;
-
-      const {
-        data: { publicUrl },
-      } = supabase.storage.from("brands").getPublicUrl(uniqueName);
-
-      setDatasheetUrl(publicUrl);
-    } catch (error) {
-      console.error("Datasheet upload error:", error);
-      alert("Failed to upload datasheet. Please try again.");
-      setDatasheetName("");
-    }
-
-    setUploadingDatasheet(false);
-  };
-
   const clearImage = () => {
     setImageUrl("");
     if (imageInputRef.current) imageInputRef.current.value = "";
   };
 
-  const clearDatasheet = () => {
-    setDatasheetUrl("");
-    setDatasheetName("");
-    if (datasheetInputRef.current) datasheetInputRef.current.value = "";
+  const handleResourceUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const title = newResourceTitle.trim() || file.name.replace(/\.[^.]+$/, "");
+
+    setUploadingResource(true);
+
+    try {
+      const supabase = createClient();
+      const fileExt = file.name.split(".").pop();
+      const uniqueName = `datasheets/${Date.now()}-${Math.random()
+        .toString(36)
+        .substring(2, 11)}.${fileExt}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from("brands")
+        .upload(uniqueName, file);
+
+      if (uploadError) throw uploadError;
+
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from("brands").getPublicUrl(uniqueName);
+
+      const response = await fetch(`/api/products/${productId}/resources`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title,
+          file_url: publicUrl,
+          file_size: file.size,
+          file_type: file.type || fileExt || null,
+          display_order: resources.length,
+        }),
+      });
+
+      if (!response.ok) {
+        const err = await response.json();
+        throw new Error(err.error || "Failed to save resource");
+      }
+
+      const created: ProductResource = await response.json();
+      setResources([...resources, created]);
+      setNewResourceTitle("");
+      if (resourceInputRef.current) resourceInputRef.current.value = "";
+    } catch (err) {
+      console.error("Resource upload error:", err);
+      alert(err instanceof Error ? err.message : "Failed to upload resource");
+    }
+
+    setUploadingResource(false);
+  };
+
+  const handleDeleteResource = async (resourceId: string) => {
+    if (!confirm("Delete this resource?")) return;
+
+    setDeletingResourceId(resourceId);
+    const response = await fetch(`/api/product-resources/${resourceId}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      setResources(resources.filter((r) => r.id !== resourceId));
+    }
+    setDeletingResourceId(null);
   };
 
   const addSpec = () => {
@@ -212,7 +253,6 @@ export default function EditProductPage() {
         model_number: modelNumber || null,
         description: description || null,
         image_url: imageUrl || null,
-        datasheet_url: datasheetUrl || null,
         specs: Object.keys(specsObj).length > 0 ? specsObj : null,
         published,
         display_order: displayOrder,
@@ -398,71 +438,6 @@ export default function EditProductPage() {
               />
             </motion.div>
 
-            {/* Datasheet Upload */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.25 }}
-            >
-              <label className="block text-sm font-medium text-steel-300 mb-2">
-                Datasheet PDF
-              </label>
-              {datasheetUrl ? (
-                <div className="flex items-center justify-between p-4 bg-steel-800 border border-steel-700 rounded-lg">
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-accent-500/10 rounded-lg">
-                      <FileText className="h-5 w-5 text-accent-500" />
-                    </div>
-                    <div>
-                      <p className="text-steel-100 font-medium">{datasheetName}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <a
-                      href={datasheetUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-3 py-1.5 text-sm text-accent-400 hover:text-accent-300 border border-accent-500/30 hover:border-accent-500/50 rounded-lg transition-colors"
-                    >
-                      Preview
-                    </a>
-                    <button
-                      type="button"
-                      onClick={() => datasheetInputRef.current?.click()}
-                      className="px-3 py-1.5 text-sm text-accent-400 hover:text-accent-300 border border-accent-500/30 hover:border-accent-500/50 rounded-lg transition-colors"
-                    >
-                      Replace
-                    </button>
-                    <button
-                      type="button"
-                      onClick={clearDatasheet}
-                      className="p-2 text-steel-400 hover:text-red-400 rounded transition-colors"
-                    >
-                      <X className="h-5 w-5" />
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <div
-                  onClick={() => datasheetInputRef.current?.click()}
-                  className="border-2 border-dashed border-steel-700 hover:border-accent-500/50 rounded-lg p-6 text-center cursor-pointer transition-colors"
-                >
-                  <FileText className={`h-8 w-8 text-steel-500 mx-auto mb-3 ${uploadingDatasheet ? "animate-pulse" : ""}`} />
-                  <p className="text-steel-300 mb-1">
-                    {uploadingDatasheet ? "Uploading..." : "Click to upload datasheet"}
-                  </p>
-                  <p className="text-steel-500 text-sm">PDF up to 50MB</p>
-                </div>
-              )}
-              <input
-                ref={datasheetInputRef}
-                type="file"
-                onChange={handleDatasheetChange}
-                className="hidden"
-                accept=".pdf"
-              />
-            </motion.div>
-
             {/* Specifications */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -567,6 +542,135 @@ export default function EditProductPage() {
           </div>
         </div>
       </form>
+
+      {/* Documents Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="mt-12"
+      >
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold text-steel-100">
+            Documents &amp; Brochures
+          </h2>
+          <p className="text-steel-400 mt-1">
+            Datasheets, spec sheets, install manuals, and other downloads shown
+            on the public product page
+          </p>
+        </div>
+
+        {/* Add Resource */}
+        <div className="bg-steel-900 border border-steel-700 rounded-xl p-6 mb-4">
+          <div className="grid md:grid-cols-[1fr_auto] gap-4 items-end">
+            <div>
+              <label className="block text-sm font-medium text-steel-300 mb-2">
+                Title (optional)
+              </label>
+              <input
+                type="text"
+                value={newResourceTitle}
+                onChange={(e) => setNewResourceTitle(e.target.value)}
+                className="w-full px-4 py-3 bg-steel-800 border border-steel-700 focus:border-accent-500 rounded-lg text-steel-100 placeholder-steel-500 outline-none transition-colors"
+                placeholder="Defaults to filename if blank"
+              />
+            </div>
+            <button
+              type="button"
+              onClick={() => resourceInputRef.current?.click()}
+              disabled={uploadingResource}
+              className="inline-flex items-center justify-center px-5 py-3 bg-gradient-to-r from-accent-600 to-accent-500 hover:from-accent-500 hover:to-accent-400 disabled:from-steel-700 disabled:to-steel-600 text-white rounded-lg font-semibold transition-all shadow-lg shadow-accent-500/25 disabled:shadow-none"
+            >
+              <Upload
+                className={`h-5 w-5 mr-2 ${uploadingResource ? "animate-pulse" : ""}`}
+              />
+              {uploadingResource ? "Uploading..." : "Upload File"}
+            </button>
+            <input
+              ref={resourceInputRef}
+              type="file"
+              onChange={handleResourceUpload}
+              className="hidden"
+            />
+          </div>
+        </div>
+
+        {/* Resources List */}
+        <div className="bg-steel-900 border border-steel-700 rounded-xl overflow-hidden">
+          {resources.length === 0 ? (
+            <div className="p-8 text-center">
+              <FileText className="h-12 w-12 text-steel-600 mx-auto mb-4" />
+              <p className="text-steel-400">No documents yet</p>
+            </div>
+          ) : (
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-steel-700 bg-steel-800/50">
+                  <th className="text-left px-6 py-4 text-sm font-semibold text-steel-300">
+                    Title
+                  </th>
+                  <th className="text-left px-6 py-4 text-sm font-semibold text-steel-300">
+                    Type
+                  </th>
+                  <th className="text-left px-6 py-4 text-sm font-semibold text-steel-300">
+                    Size
+                  </th>
+                  <th className="text-right px-6 py-4 text-sm font-semibold text-steel-300">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {resources.map((resource, index) => (
+                  <motion.tr
+                    key={resource.id}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: index * 0.05 }}
+                    className="border-b border-steel-800 hover:bg-steel-800/30 transition-colors"
+                  >
+                    <td className="px-6 py-4">
+                      <div className="flex items-center space-x-3">
+                        <FileText className="h-5 w-5 text-steel-500 flex-shrink-0" />
+                        <p className="text-steel-100 font-medium">
+                          {resource.title}
+                        </p>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 text-steel-400 text-sm uppercase">
+                      {resource.file_type?.split("/").pop() || "-"}
+                    </td>
+                    <td className="px-6 py-4 text-steel-400 text-sm">
+                      {formatFileSize(resource.file_size)}
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center justify-end space-x-2">
+                        <a
+                          href={resource.file_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2 text-steel-400 hover:text-accent-400 hover:bg-steel-800 rounded transition-colors"
+                          title="Download"
+                        >
+                          <Download className="h-4 w-4" />
+                        </a>
+                        <button
+                          onClick={() => handleDeleteResource(resource.id)}
+                          disabled={deletingResourceId === resource.id}
+                          className="p-2 text-steel-400 hover:text-red-400 hover:bg-steel-800 rounded transition-colors disabled:opacity-50"
+                          title="Delete"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </td>
+                  </motion.tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      </motion.div>
     </div>
   );
 }

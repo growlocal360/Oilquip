@@ -17,10 +17,19 @@ import {
   Eye,
   EyeOff,
   Package,
+  FileText,
+  Download,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import slugify from "slugify";
-import type { Brand, BrandProduct } from "@/lib/types";
+import type { Brand, BrandProduct, BrandResource } from "@/lib/types";
+
+function formatFileSize(bytes: number | null): string {
+  if (!bytes) return "";
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
 
 export default function EditBrandPage() {
   const router = useRouter();
@@ -42,6 +51,13 @@ export default function EditBrandPage() {
   // Products
   const [products, setProducts] = useState<BrandProduct[]>([]);
   const [deletingProductId, setDeletingProductId] = useState<string | null>(null);
+
+  // Resources
+  const resourceInputRef = useRef<HTMLInputElement>(null);
+  const [resources, setResources] = useState<BrandResource[]>([]);
+  const [newResourceTitle, setNewResourceTitle] = useState("");
+  const [uploadingResource, setUploadingResource] = useState(false);
+  const [deletingResourceId, setDeletingResourceId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,6 +91,15 @@ export default function EditBrandPage() {
         .order("display_order", { ascending: true });
 
       setProducts(productsData || []);
+
+      // Fetch resources
+      const { data: resourcesData } = await supabase
+        .from("brand_resources")
+        .select("*")
+        .eq("brand_id", id)
+        .order("display_order", { ascending: true });
+
+      setResources(resourcesData || []);
       setLoading(false);
     };
 
@@ -167,6 +192,73 @@ export default function EditBrandPage() {
       setProducts(products.filter((p) => p.id !== productId));
     }
     setDeletingProductId(null);
+  };
+
+  const handleResourceUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const title = newResourceTitle.trim() || file.name.replace(/\.[^.]+$/, "");
+
+    setUploadingResource(true);
+
+    try {
+      const supabase = createClient();
+      const fileExt = file.name.split(".").pop();
+      const uniqueName = `resources/${Date.now()}-${Math.random()
+        .toString(36)
+        .substring(2, 11)}.${fileExt}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from("brands")
+        .upload(uniqueName, file);
+
+      if (uploadError) throw uploadError;
+
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from("brands").getPublicUrl(uniqueName);
+
+      const response = await fetch(`/api/brands/${id}/resources`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title,
+          file_url: publicUrl,
+          file_size: file.size,
+          file_type: file.type || fileExt || null,
+          display_order: resources.length,
+        }),
+      });
+
+      if (!response.ok) {
+        const err = await response.json();
+        throw new Error(err.error || "Failed to save resource");
+      }
+
+      const created: BrandResource = await response.json();
+      setResources([...resources, created]);
+      setNewResourceTitle("");
+      if (resourceInputRef.current) resourceInputRef.current.value = "";
+    } catch (err) {
+      console.error("Resource upload error:", err);
+      alert(err instanceof Error ? err.message : "Failed to upload resource");
+    }
+
+    setUploadingResource(false);
+  };
+
+  const handleDeleteResource = async (resourceId: string) => {
+    if (!confirm("Delete this resource?")) return;
+
+    setDeletingResourceId(resourceId);
+    const response = await fetch(`/api/brand-resources/${resourceId}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      setResources(resources.filter((r) => r.id !== resourceId));
+    }
+    setDeletingResourceId(null);
   };
 
   const toggleProductPublish = async (product: BrandProduct) => {
@@ -539,6 +631,133 @@ export default function EditBrandPage() {
                         <button
                           onClick={() => handleDeleteProduct(product.id)}
                           disabled={deletingProductId === product.id}
+                          className="p-2 text-steel-400 hover:text-red-400 hover:bg-steel-800 rounded transition-colors disabled:opacity-50"
+                          title="Delete"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </td>
+                  </motion.tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      </motion.div>
+
+      {/* Resources Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.35 }}
+        className="mt-12"
+      >
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold text-steel-100">
+            Catalogs &amp; Brochures
+          </h2>
+          <p className="text-steel-400 mt-1">
+            Brand-level files (catalogs, brochures, brand guides) shown on the
+            public brand page
+          </p>
+        </div>
+
+        {/* Add Resource */}
+        <div className="bg-steel-900 border border-steel-700 rounded-xl p-6 mb-4">
+          <div className="grid md:grid-cols-[1fr_auto] gap-4 items-end">
+            <div>
+              <label className="block text-sm font-medium text-steel-300 mb-2">
+                Title (optional)
+              </label>
+              <input
+                type="text"
+                value={newResourceTitle}
+                onChange={(e) => setNewResourceTitle(e.target.value)}
+                className="w-full px-4 py-3 bg-steel-800 border border-steel-700 focus:border-accent-500 rounded-lg text-steel-100 placeholder-steel-500 outline-none transition-colors"
+                placeholder="Defaults to filename if blank"
+              />
+            </div>
+            <button
+              type="button"
+              onClick={() => resourceInputRef.current?.click()}
+              disabled={uploadingResource}
+              className="inline-flex items-center justify-center px-5 py-3 bg-gradient-to-r from-accent-600 to-accent-500 hover:from-accent-500 hover:to-accent-400 disabled:from-steel-700 disabled:to-steel-600 text-white rounded-lg font-semibold transition-all shadow-lg shadow-accent-500/25 disabled:shadow-none"
+            >
+              <Upload className={`h-5 w-5 mr-2 ${uploadingResource ? "animate-pulse" : ""}`} />
+              {uploadingResource ? "Uploading..." : "Upload File"}
+            </button>
+            <input
+              ref={resourceInputRef}
+              type="file"
+              onChange={handleResourceUpload}
+              className="hidden"
+            />
+          </div>
+        </div>
+
+        {/* Resources List */}
+        <div className="bg-steel-900 border border-steel-700 rounded-xl overflow-hidden">
+          {resources.length === 0 ? (
+            <div className="p-8 text-center">
+              <FileText className="h-12 w-12 text-steel-600 mx-auto mb-4" />
+              <p className="text-steel-400">No catalogs or brochures yet</p>
+            </div>
+          ) : (
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-steel-700 bg-steel-800/50">
+                  <th className="text-left px-6 py-4 text-sm font-semibold text-steel-300">
+                    Title
+                  </th>
+                  <th className="text-left px-6 py-4 text-sm font-semibold text-steel-300">
+                    Type
+                  </th>
+                  <th className="text-left px-6 py-4 text-sm font-semibold text-steel-300">
+                    Size
+                  </th>
+                  <th className="text-right px-6 py-4 text-sm font-semibold text-steel-300">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {resources.map((resource, index) => (
+                  <motion.tr
+                    key={resource.id}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: index * 0.05 }}
+                    className="border-b border-steel-800 hover:bg-steel-800/30 transition-colors"
+                  >
+                    <td className="px-6 py-4">
+                      <div className="flex items-center space-x-3">
+                        <FileText className="h-5 w-5 text-steel-500 flex-shrink-0" />
+                        <p className="text-steel-100 font-medium">
+                          {resource.title}
+                        </p>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 text-steel-400 text-sm uppercase">
+                      {resource.file_type?.split("/").pop() || "-"}
+                    </td>
+                    <td className="px-6 py-4 text-steel-400 text-sm">
+                      {formatFileSize(resource.file_size)}
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center justify-end space-x-2">
+                        <a
+                          href={resource.file_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2 text-steel-400 hover:text-accent-400 hover:bg-steel-800 rounded transition-colors"
+                          title="Download"
+                        >
+                          <Download className="h-4 w-4" />
+                        </a>
+                        <button
+                          onClick={() => handleDeleteResource(resource.id)}
+                          disabled={deletingResourceId === resource.id}
                           className="p-2 text-steel-400 hover:text-red-400 hover:bg-steel-800 rounded transition-colors disabled:opacity-50"
                           title="Delete"
                         >

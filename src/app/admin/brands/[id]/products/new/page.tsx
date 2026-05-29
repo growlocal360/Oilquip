@@ -5,7 +5,7 @@ import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowLeft, Save, Upload, X, Plus, Minus, FileText } from "lucide-react";
+import { ArrowLeft, Save, Upload, X, Plus, Minus } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import slugify from "slugify";
 import type { Brand } from "@/lib/types";
@@ -17,19 +17,15 @@ export default function NewProductPage() {
   const params = useParams();
   const brandId = params.id as string;
   const imageInputRef = useRef<HTMLInputElement>(null);
-  const datasheetInputRef = useRef<HTMLInputElement>(null);
 
   const [brand, setBrand] = useState<Brand | null>(null);
   const [saving, setSaving] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
-  const [uploadingDatasheet, setUploadingDatasheet] = useState(false);
   const [name, setName] = useState("");
   const [slug, setSlug] = useState("");
   const [modelNumber, setModelNumber] = useState("");
   const [description, setDescription] = useState<JSONContent | null>(null);
   const [imageUrl, setImageUrl] = useState("");
-  const [datasheetUrl, setDatasheetUrl] = useState("");
-  const [datasheetName, setDatasheetName] = useState("");
   const [specs, setSpecs] = useState<{ key: string; value: string }[]>([]);
   const [published, setPublished] = useState(true);
   const [displayOrder, setDisplayOrder] = useState(0);
@@ -90,47 +86,9 @@ export default function NewProductPage() {
     setUploadingImage(false);
   };
 
-  const handleDatasheetChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setUploadingDatasheet(true);
-    setDatasheetName(file.name);
-
-    try {
-      const supabase = createClient();
-      const fileExt = file.name.split(".").pop();
-      const uniqueName = `datasheets/${Date.now()}-${Math.random().toString(36).substring(2, 11)}.${fileExt}`;
-
-      const { error } = await supabase.storage
-        .from("brands")
-        .upload(uniqueName, file);
-
-      if (error) throw error;
-
-      const {
-        data: { publicUrl },
-      } = supabase.storage.from("brands").getPublicUrl(uniqueName);
-
-      setDatasheetUrl(publicUrl);
-    } catch (error) {
-      console.error("Datasheet upload error:", error);
-      alert("Failed to upload datasheet. Please try again.");
-      setDatasheetName("");
-    }
-
-    setUploadingDatasheet(false);
-  };
-
   const clearImage = () => {
     setImageUrl("");
     if (imageInputRef.current) imageInputRef.current.value = "";
-  };
-
-  const clearDatasheet = () => {
-    setDatasheetUrl("");
-    setDatasheetName("");
-    if (datasheetInputRef.current) datasheetInputRef.current.value = "";
   };
 
   const addSpec = () => {
@@ -170,7 +128,6 @@ export default function NewProductPage() {
         model_number: modelNumber || null,
         description: description || null,
         image_url: imageUrl || null,
-        datasheet_url: datasheetUrl || null,
         specs: Object.keys(specsObj).length > 0 ? specsObj : null,
         published,
         display_order: displayOrder,
@@ -346,54 +303,6 @@ export default function NewProductPage() {
                 content={description}
                 onChange={setDescription}
                 placeholder="Product description..."
-              />
-            </motion.div>
-
-            {/* Datasheet Upload */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.25 }}
-            >
-              <label className="block text-sm font-medium text-steel-300 mb-2">
-                Datasheet PDF
-              </label>
-              {datasheetUrl ? (
-                <div className="flex items-center justify-between p-4 bg-steel-800 border border-steel-700 rounded-lg">
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-accent-500/10 rounded-lg">
-                      <FileText className="h-5 w-5 text-accent-500" />
-                    </div>
-                    <div>
-                      <p className="text-steel-100 font-medium">{datasheetName}</p>
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={clearDatasheet}
-                    className="p-2 text-steel-400 hover:text-red-400 rounded transition-colors"
-                  >
-                    <X className="h-5 w-5" />
-                  </button>
-                </div>
-              ) : (
-                <div
-                  onClick={() => datasheetInputRef.current?.click()}
-                  className="border-2 border-dashed border-steel-700 hover:border-accent-500/50 rounded-lg p-6 text-center cursor-pointer transition-colors"
-                >
-                  <FileText className="h-8 w-8 text-steel-500 mx-auto mb-3" />
-                  <p className="text-steel-300 mb-1">
-                    {uploadingDatasheet ? "Uploading..." : "Click to upload datasheet"}
-                  </p>
-                  <p className="text-steel-500 text-sm">PDF up to 50MB</p>
-                </div>
-              )}
-              <input
-                ref={datasheetInputRef}
-                type="file"
-                onChange={handleDatasheetChange}
-                className="hidden"
-                accept=".pdf"
               />
             </motion.div>
 

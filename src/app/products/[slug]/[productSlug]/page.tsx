@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Package, Download, FileText } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import ArticleContent from "@/components/editor/ArticleContent";
-import type { Brand, BrandProduct } from "@/lib/types";
+import type { Brand, BrandProduct, ProductResource } from "@/lib/types";
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -17,6 +17,7 @@ export default function ProductDetailPage() {
 
   const [brand, setBrand] = useState<Brand | null>(null);
   const [product, setProduct] = useState<BrandProduct | null>(null);
+  const [resources, setResources] = useState<ProductResource[]>([]);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
 
@@ -56,6 +57,15 @@ export default function ProductDetailPage() {
       }
 
       setProduct(productData);
+
+      // Fetch product resources
+      const { data: resourcesData } = await supabase
+        .from("product_resources")
+        .select("*")
+        .eq("product_id", productData.id)
+        .order("display_order", { ascending: true });
+
+      setResources(resourcesData || []);
       setLoading(false);
     };
 
@@ -164,16 +174,30 @@ export default function ProductDetailPage() {
                   </Link>
                 </div>
 
-                {product.datasheet_url && (
-                  <a
-                    href={product.datasheet_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-safety-600 to-safety-500 hover:from-safety-500 hover:to-safety-400 text-white rounded-lg font-semibold transition-all shadow-lg shadow-safety-500/25"
-                  >
-                    <Download className="h-5 w-5" />
-                    <span>Download Datasheet</span>
-                  </a>
+                {resources.length > 0 && (
+                  <div>
+                    <h3 className="text-sm font-semibold text-steel-300 uppercase tracking-wide mb-3">
+                      Documents
+                    </h3>
+                    <ul className="space-y-2">
+                      {resources.map((resource) => (
+                        <li key={resource.id}>
+                          <a
+                            href={resource.file_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group flex items-center gap-3 py-2 text-steel-300 hover:text-accent-400 transition-colors"
+                          >
+                            <FileText className="h-4 w-4 text-steel-500 group-hover:text-accent-400 transition-colors flex-shrink-0" />
+                            <span className="flex-1 underline-offset-4 group-hover:underline">
+                              {resource.title}
+                            </span>
+                            <Download className="h-4 w-4 text-steel-600 group-hover:text-accent-400 transition-colors flex-shrink-0" />
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 )}
               </div>
             </div>
