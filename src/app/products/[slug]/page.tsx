@@ -5,10 +5,10 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowLeft, Building2, ExternalLink, Package } from "lucide-react";
+import { ArrowLeft, Building2, ExternalLink, Package, FileText, Download } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import ProductCard from "@/components/brands/ProductCard";
-import type { Brand, BrandProduct } from "@/lib/types";
+import type { Brand, BrandProduct, BrandResource } from "@/lib/types";
 
 export default function BrandDetailPage() {
   const params = useParams();
@@ -16,6 +16,7 @@ export default function BrandDetailPage() {
 
   const [brand, setBrand] = useState<Brand | null>(null);
   const [products, setProducts] = useState<BrandProduct[]>([]);
+  const [resources, setResources] = useState<BrandResource[]>([]);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
 
@@ -48,6 +49,15 @@ export default function BrandDetailPage() {
         .order("display_order", { ascending: true });
 
       setProducts(productsData || []);
+
+      // Fetch resources
+      const { data: resourcesData } = await supabase
+        .from("brand_resources")
+        .select("*")
+        .eq("brand_id", brandData.id)
+        .order("display_order", { ascending: true });
+
+      setResources(resourcesData || []);
       setLoading(false);
     };
 
@@ -105,44 +115,80 @@ export default function BrandDetailPage() {
               Back to Products
             </Link>
 
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-8">
-              {/* Logo */}
-              <div className="w-32 h-32 bg-white rounded-2xl flex items-center justify-center flex-shrink-0 overflow-hidden">
-                {brand.logo_url ? (
-                  <Image
-                    src={brand.logo_url}
-                    alt={brand.name}
-                    width={128}
-                    height={128}
-                    className="object-contain p-4"
-                  />
-                ) : (
-                  <Building2 className="h-16 w-16 text-steel-300" />
-                )}
+            <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
+              {/* Main column */}
+              <div
+                className={
+                  resources.length > 0
+                    ? "lg:col-span-2 flex flex-col md:flex-row items-start md:items-center gap-8"
+                    : "lg:col-span-3 flex flex-col md:flex-row items-start md:items-center gap-8"
+                }
+              >
+                {/* Logo */}
+                <div className="w-32 h-32 bg-white rounded-2xl flex items-center justify-center flex-shrink-0 overflow-hidden">
+                  {brand.logo_url ? (
+                    <Image
+                      src={brand.logo_url}
+                      alt={brand.name}
+                      width={128}
+                      height={128}
+                      className="object-contain p-4"
+                    />
+                  ) : (
+                    <Building2 className="h-16 w-16 text-steel-300" />
+                  )}
+                </div>
+
+                {/* Info */}
+                <div>
+                  <h1 className="text-4xl sm:text-5xl font-bold text-steel-100 mb-4">
+                    {brand.name}
+                  </h1>
+                  {brand.description && (
+                    <p className="text-lg text-steel-400 max-w-2xl mb-4">
+                      {brand.description}
+                    </p>
+                  )}
+                  {brand.website_url && (
+                    <a
+                      href={brand.website_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-accent-400 hover:text-accent-300 font-medium transition-colors"
+                    >
+                      Visit Website
+                      <ExternalLink className="h-4 w-4 ml-2" />
+                    </a>
+                  )}
+                </div>
               </div>
 
-              {/* Info */}
-              <div>
-                <h1 className="text-4xl sm:text-5xl font-bold text-steel-100 mb-4">
-                  {brand.name}
-                </h1>
-                {brand.description && (
-                  <p className="text-lg text-steel-400 max-w-2xl mb-4">
-                    {brand.description}
-                  </p>
-                )}
-                {brand.website_url && (
-                  <a
-                    href={brand.website_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-accent-400 hover:text-accent-300 font-medium transition-colors"
-                  >
-                    Visit Website
-                    <ExternalLink className="h-4 w-4 ml-2" />
-                  </a>
-                )}
-              </div>
+              {/* Catalogs & Brochures sidebar */}
+              {resources.length > 0 && (
+                <aside className="lg:col-span-1">
+                  <h3 className="text-xl font-bold text-steel-100 mb-4">
+                    Catalogs &amp; Brochures:
+                  </h3>
+                  <ul className="space-y-2">
+                    {resources.map((resource) => (
+                      <li key={resource.id}>
+                        <a
+                          href={resource.file_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group flex items-center gap-3 py-2 text-steel-300 hover:text-accent-400 transition-colors"
+                        >
+                          <FileText className="h-4 w-4 text-steel-500 group-hover:text-accent-400 transition-colors flex-shrink-0" />
+                          <span className="flex-1 underline-offset-4 group-hover:underline">
+                            {resource.title}
+                          </span>
+                          <Download className="h-4 w-4 text-steel-600 group-hover:text-accent-400 transition-colors flex-shrink-0" />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </aside>
+              )}
             </div>
           </motion.div>
         </div>
