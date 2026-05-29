@@ -10,6 +10,9 @@ import { createClient } from "@/lib/supabase/client";
 import slugify from "slugify";
 import type { Brand, ProductResource } from "@/lib/types";
 
+const MAX_UPLOAD_BYTES = 200 * 1024 * 1024;
+const MAX_UPLOAD_MB = MAX_UPLOAD_BYTES / 1024 / 1024;
+
 function formatFileSize(bytes: number | null): string {
   if (!bytes) return "";
   if (bytes < 1024) return `${bytes} B`;
@@ -153,6 +156,15 @@ export default function EditProductPage() {
   const handleResourceUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    if (file.size > MAX_UPLOAD_BYTES) {
+      alert(
+        `File is ${(file.size / 1024 / 1024).toFixed(1)} MB — the limit is ${MAX_UPLOAD_MB} MB. Please compress the PDF and try again.`
+      );
+      if (resourceInputRef.current) resourceInputRef.current.value = "";
+      return;
+    }
+
     const title = newResourceTitle.trim() || file.name.replace(/\.[^.]+$/, "");
 
     setUploadingResource(true);
@@ -593,6 +605,9 @@ export default function EditProductPage() {
               className="hidden"
             />
           </div>
+          <p className="text-steel-500 text-xs mt-3">
+            Up to {MAX_UPLOAD_MB} MB per file
+          </p>
         </div>
 
         {/* Resources List */}
