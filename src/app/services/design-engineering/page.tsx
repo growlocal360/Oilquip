@@ -142,9 +142,9 @@ export default function DesignEngineeringPage() {
             priority
             quality={90}
           />
-          <div className="absolute inset-0 bg-steel-950/60" />
-          <div className="absolute inset-0 bg-gradient-to-r from-steel-950/80 via-steel-950/40 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-steel-950 via-transparent to-steel-950/30" />
+          <div className="absolute inset-0 bg-steel-950/30" />
+          <div className="absolute inset-0 bg-gradient-to-r from-steel-950/60 via-steel-950/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-steel-950/80 via-transparent to-transparent" />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
