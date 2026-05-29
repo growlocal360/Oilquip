@@ -135,7 +135,7 @@ export default function DesignEngineeringPage() {
       <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/design-engineering/oilquip-design-engineering-services-hero.jpg"
+            src="/design-engineering/design-engineering-oilquip.jpg"
             alt="Oilquip Design & Engineering Services"
             fill
             className="object-cover"
