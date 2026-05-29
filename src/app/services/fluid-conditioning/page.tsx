@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Droplets,
   AlertTriangle,
@@ -64,10 +65,21 @@ const benefits = [
 export default function FluidConditioningPage() {
   return (
     <div className="bg-steel-950">
-      {/* Hero Section */}
+      {/* Hero Section with Background Image */}
       <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
-        <div className="absolute inset-0 grid-pattern opacity-20" />
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-safety-500/5 to-transparent" />
+        <div className="absolute inset-0">
+          <Image
+            src="/fluid-conditioning/fluid-conditioning-oilquip.jpg"
+            alt="Oilquip Fluid Conditioning"
+            fill
+            className="object-cover"
+            priority
+            quality={90}
+          />
+          <div className="absolute inset-0 bg-steel-950/30" />
+          <div className="absolute inset-0 bg-gradient-to-r from-steel-950/60 via-steel-950/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-steel-950/80 via-transparent to-transparent" />
+        </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
