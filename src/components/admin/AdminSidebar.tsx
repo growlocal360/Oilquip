@@ -7,6 +7,7 @@ import {
   LayoutDashboard,
   Newspaper,
   Briefcase,
+  ClipboardList,
   FolderOpen,
   Building2,
   Users,
@@ -29,6 +30,11 @@ const navItems = [
     label: "Careers",
     href: "/admin/careers",
     icon: Briefcase,
+  },
+  {
+    label: "Applicants",
+    href: "/admin/applicants",
+    icon: ClipboardList,
   },
   {
     label: "Resources",

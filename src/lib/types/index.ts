@@ -3,3 +3,4 @@ export * from "./careers";
 export * from "./resources";
 export * from "./brands";
 export * from "./portal";
+export * from "./applications";

@@ -140,13 +140,13 @@ export default function CareersPage() {
                 No open positions at the moment
               </p>
               <p className="text-steel-500 mb-6">
-                Check back soon or send us your resume for future opportunities
+                Send us your resume and we&apos;ll keep it on file for future opportunities
               </p>
               <Link
-                href="/#contact"
-                className="inline-flex items-center text-accent-400 hover:text-accent-300"
+                href="/careers/apply"
+                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-safety-600 to-safety-500 hover:from-safety-500 hover:to-safety-400 text-white rounded-lg font-semibold transition-all shadow-lg shadow-safety-500/25"
               >
-                Contact Us
+                Apply Today
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </div>
@@ -185,10 +185,10 @@ export default function CareersPage() {
               future with Oilquip.
             </p>
             <Link
-              href="/#contact"
+              href="/careers/apply"
               className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-safety-600 to-safety-500 hover:from-safety-500 hover:to-safety-400 text-white rounded-lg font-semibold transition-all shadow-lg shadow-safety-500/25"
             >
-              Get in Touch
+              Apply Today
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </motion.div>

@@ -174,7 +174,7 @@ export default function JobDetailPage() {
                   us why you&apos;d be a great fit for this role.
                 </p>
                 <Link
-                  href="/#contact"
+                  href={`/careers/${job.slug}/apply`}
                   className="w-full inline-flex items-center justify-center px-6 py-4 bg-gradient-to-r from-safety-600 to-safety-500 hover:from-safety-500 hover:to-safety-400 text-white rounded-lg font-semibold transition-all shadow-lg shadow-safety-500/25"
                 >
                   <Send className="h-5 w-5 mr-2" />
