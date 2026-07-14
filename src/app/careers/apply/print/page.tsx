@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import PrintApplicationButton from "@/components/careers/PrintApplicationButton";
 
 export const metadata = {
@@ -10,6 +12,15 @@ export default function PrintableApplicationPage() {
   return (
     <div className="bg-white text-black min-h-screen p-8 print:p-4">
       <div className="max-w-3xl mx-auto">
+        <div className="no-print mb-6 flex items-center justify-between">
+          <Link
+            href="/careers"
+            className="inline-flex items-center text-sm text-gray-700 hover:text-black transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4 mr-1" />
+            Back to Careers
+          </Link>
+        </div>
         <PrintApplicationButton />
 
         <header className="border-b-2 border-black pb-4 mb-6">
