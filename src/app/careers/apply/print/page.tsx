@@ -1,3 +1,5 @@
+import PrintApplicationButton from "@/components/careers/PrintApplicationButton";
+
 export const metadata = {
   title: "Employment Application (Printable) | Oilquip",
 };
@@ -8,7 +10,7 @@ export default function PrintableApplicationPage() {
   return (
     <div className="bg-white text-black min-h-screen p-8 print:p-4">
       <div className="max-w-3xl mx-auto">
-        <PrintButton />
+        <PrintApplicationButton />
 
         <header className="border-b-2 border-black pb-4 mb-6">
           <h1 className="text-3xl font-bold">Employment Application</h1>
@@ -121,23 +123,6 @@ export default function PrintableApplicationPage() {
           @page { margin: 0.5in; }
         }
       `}</style>
-    </div>
-  );
-}
-
-function PrintButton() {
-  return (
-    <div className="no-print mb-6 flex justify-end">
-      <a
-        href="#"
-        onClick={(e) => {
-          e.preventDefault();
-          if (typeof window !== "undefined") window.print();
-        }}
-        className="inline-flex items-center px-4 py-2 bg-black text-white rounded font-semibold text-sm"
-      >
-        Print / Save as PDF
-      </a>
     </div>
   );
 }
