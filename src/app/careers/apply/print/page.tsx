@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
 import PrintApplicationButton from "@/components/careers/PrintApplicationButton";
 
@@ -23,9 +24,19 @@ export default function PrintableApplicationPage() {
         </div>
         <PrintApplicationButton />
 
-        <header className="border-b-2 border-black pb-4 mb-6">
-          <h1 className="text-3xl font-bold">Employment Application</h1>
-          <p className="text-sm mt-1">Oilquip, Inc. · Lake Charles, LA</p>
+        <header className="border-b-2 border-black pb-4 mb-6 flex items-center gap-6">
+          <Image
+            src="/oilquip-logo-color.svg"
+            alt="Oilquip"
+            width={120}
+            height={40}
+            className="h-12 w-auto flex-shrink-0"
+            priority
+          />
+          <div>
+            <h1 className="text-3xl font-bold">Employment Application</h1>
+            <p className="text-sm mt-1">Oilquip, Inc. · Lake Charles, LA</p>
+          </div>
         </header>
 
         <Section title="Contact Information">

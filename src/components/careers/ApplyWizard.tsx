@@ -493,9 +493,9 @@ export default function ApplyWizard({ job }: ApplyWizardProps) {
           <Link
             href="/careers/apply/print"
             target="_blank"
-            className="inline-flex items-center text-sm text-steel-500 hover:text-accent-400 transition-colors"
+            className="inline-flex items-center px-5 py-2.5 bg-accent-500/10 border border-accent-500/40 hover:bg-accent-500/20 hover:border-accent-400 text-accent-300 hover:text-accent-200 rounded-full font-medium text-base transition-colors"
           >
-            <Printer className="h-4 w-4 mr-1" />
+            <Printer className="h-5 w-5 mr-2" />
             Prefer paper? Print a blank application
           </Link>
         </div>
