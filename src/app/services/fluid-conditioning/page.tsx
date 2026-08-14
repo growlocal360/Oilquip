@@ -12,6 +12,7 @@ import {
   Filter,
   Thermometer,
   RefreshCw,
+  Activity,
 } from "lucide-react";
 
 const stats = [
@@ -334,8 +335,87 @@ export default function FluidConditioningPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Oil Condition Monitoring Section */}
       <section className="py-20 bg-steel-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="inline-flex items-center space-x-2 bg-accent-500/10 border border-accent-500/30 rounded-full px-4 py-2 mb-6">
+                <Activity className="h-5 w-5 text-accent-500" />
+                <span className="text-accent-400 font-semibold text-sm">
+                  Authorized Atten2 Distributor
+                </span>
+              </div>
+
+              <h2 className="text-3xl sm:text-4xl font-bold text-steel-100 mb-6">
+                Real-Time{" "}
+                <span className="text-gradient">Oil Condition Monitoring</span>
+              </h2>
+
+              <p className="text-steel-400 text-lg mb-6 leading-relaxed">
+                Cleaning your fluid is only half the battle—knowing its
+                condition at every moment is the other half. Atten2 optical
+                sensors watch your oil continuously, catching contamination and
+                degradation the instant they appear.
+              </p>
+
+              <p className="text-steel-300 text-lg mb-8 leading-relaxed">
+                No more waiting weeks for lab results from a bottle sample.
+                Real-time monitoring means you act on what&apos;s happening in
+                your system right now—before a trend becomes a failure.
+              </p>
+
+              <div className="space-y-4">
+                {[
+                  "Continuous online monitoring—no manual sampling",
+                  "Optical detection of particles and wear debris",
+                  "Oil degradation and water content trending",
+                  "Early warnings before contamination causes damage",
+                ].map((feature, index) => (
+                  <motion.div
+                    key={feature}
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.05 }}
+                    className="flex items-center space-x-3"
+                  >
+                    <CheckCircle className="h-5 w-5 text-accent-500 flex-shrink-0" />
+                    <span className="text-steel-300">{feature}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="relative rounded-xl overflow-hidden border border-steel-700">
+                <Image
+                  src="/fluid-conditioning/atten-2.jpg"
+                  alt="Atten2 real-time oil condition monitoring sensors"
+                  width={1250}
+                  height={686}
+                  className="w-full h-auto"
+                  quality={90}
+                />
+              </div>
+              <p className="text-steel-500 text-sm text-center mt-4">
+                Atten2 optical oil condition monitoring sensors
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-steel-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
