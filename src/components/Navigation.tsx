@@ -12,6 +12,7 @@ const services = [
   { name: "Power Generation", href: "/services/power-generation" },
   { name: "Fluid Conditioning", href: "/services/fluid-conditioning" },
   { name: "Repairs & Upgrades", href: "/services/repairs-upgrades" },
+  { name: "Distribution", href: "/products" },
 ];
 
 const resources = [
