@@ -218,6 +218,18 @@ export default function FluidConditioningPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
+              <div className="bg-white rounded-xl p-6 mb-8 flex items-center justify-center">
+                <Image
+                  src="/fluid-conditioning/hypro-compact-offline-filtration-unit.jpg"
+                  alt="Hy-Pro compact offline filtration unit"
+                  width={571}
+                  height={698}
+                  className="h-72 w-auto"
+                />
+              </div>
+              <p className="text-steel-500 text-sm text-center -mt-4 mb-8">
+                Hy-Pro compact offline filtration unit
+              </p>
               <div className="bg-steel-900 border border-steel-700 rounded-xl p-8">
                 <h3 className="text-xl font-bold text-steel-100 mb-6">
                   What Clean Fluid Delivers
@@ -365,16 +377,18 @@ export default function FluidConditioningPage() {
 
               <p className="text-steel-300 text-lg mb-8 leading-relaxed">
                 No more waiting weeks for lab results from a bottle sample.
-                Real-time monitoring means you act on what&apos;s happening in
+                Inline monitoring means you act on what&apos;s happening in
                 your system right now—before a trend becomes a failure.
               </p>
 
               <div className="space-y-4">
                 {[
-                  "Continuous online monitoring—no manual sampling",
-                  "Optical detection of particles and wear debris",
-                  "Oil degradation and water content trending",
-                  "Early warnings before contamination causes damage",
+                  "Detects particles and bubbles larger than 4 microns",
+                  "Classifies contamination across six particle size ranges",
+                  "Inline monitoring of real-time oil condition",
+                  "Optical recognition filters false readings from air or water",
+                  "Integrates with SCADA, PLC, and industrial monitoring systems",
+                  "Early warning indicators of component wear and failure",
                 ].map((feature, index) => (
                   <motion.div
                     key={feature}
@@ -406,8 +420,38 @@ export default function FluidConditioningPage() {
                   quality={90}
                 />
               </div>
+              <div className="grid grid-cols-2 gap-4 mt-4">
+                <div className="relative rounded-xl overflow-hidden border border-steel-700">
+                  <Image
+                    src="/fluid-conditioning/atten2-camera-shot-particles.jpg"
+                    alt="Atten2 sensor camera view distinguishing particles from bubbles in oil"
+                    width={806}
+                    height={580}
+                    className="w-full h-40 object-cover"
+                  />
+                </div>
+                <div className="relative rounded-xl overflow-hidden border border-steel-700">
+                  <Image
+                    src="/fluid-conditioning/atten2-bubble-count-image.jpg"
+                    alt="Atten2 bubble counting and discrimination with LED and digital image processor"
+                    width={1510}
+                    height={821}
+                    className="w-full h-40 object-cover"
+                  />
+                </div>
+              </div>
+              <div className="relative rounded-xl overflow-hidden border border-steel-700 mt-4">
+                <Image
+                  src="/fluid-conditioning/atten2-easy-installation-Image.jpg"
+                  alt="Atten2 sensor installed on a hydraulic lubrication system"
+                  width={1419}
+                  height={806}
+                  className="w-full h-auto"
+                />
+              </div>
               <p className="text-steel-500 text-sm text-center mt-4">
-                Atten2 optical oil condition monitoring sensors
+                Atten2 optical sensors see particles and bubbles directly in the
+                oil stream—and install easily in existing lubrication systems
               </p>
             </motion.div>
           </div>
