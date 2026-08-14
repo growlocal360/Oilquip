@@ -70,7 +70,7 @@ export default function FluidConditioningPage() {
       <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/fluid-conditioning/fluid-conditioning-oilquip.jpg"
+            src="/fluid-conditioning/fluid-conditioning-services-oilquip.jpg"
             alt="Oilquip Fluid Conditioning"
             fill
             className="object-cover"
