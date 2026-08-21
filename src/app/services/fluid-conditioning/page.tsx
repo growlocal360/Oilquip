@@ -122,7 +122,7 @@ export default function FluidConditioningPage() {
                 href="#rental"
                 className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-safety-600 to-safety-500 hover:from-safety-500 hover:to-safety-400 text-white rounded-lg font-semibold transition-all shadow-lg shadow-safety-500/25"
               >
-                Explore Rental Options
+                Prevent System Failures
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
               <Link
@@ -159,191 +159,6 @@ export default function FluidConditioningPage() {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Penny Wise Section */}
-      <section className="py-20 bg-steel-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <div className="inline-flex items-center space-x-2 bg-accent-400/10 border border-accent-400/30 rounded-full px-4 py-2 mb-6">
-                <DollarSign className="h-5 w-5 text-accent-400" />
-                <span className="text-accent-400 font-semibold text-sm">
-                  The Economics
-                </span>
-              </div>
-
-              <h2 className="text-3xl sm:text-4xl font-bold text-steel-100 mb-6">
-                Penny Wise and{" "}
-                <span className="text-gradient">A Pound Foolish</span>
-              </h2>
-
-              <p className="text-steel-400 text-lg mb-6 leading-relaxed">
-                Here&apos;s the math that should keep maintenance managers up at
-                night: Filtration represents just 3% of total maintenance
-                costs—but contamination causes 85% of failures.
-              </p>
-
-              <p className="text-steel-300 text-lg mb-8 leading-relaxed">
-                Every dollar spent on proper fluid conditioning saves $10-15 in
-                repair costs, lost production, and premature component
-                replacement. The choice isn&apos;t whether you can afford proper
-                conditioning—it&apos;s whether you can afford not to.
-              </p>
-
-              <div className="bg-steel-900/50 border border-steel-700 rounded-xl p-6">
-                <div className="flex items-start space-x-4">
-                  <AlertTriangle className="h-6 w-6 text-accent-500 flex-shrink-0 mt-1" />
-                  <div>
-                    <h4 className="text-steel-100 font-semibold mb-2">
-                      The Hidden Cost
-                    </h4>
-                    <p className="text-steel-400 text-sm">
-                      A single contamination-related failure can cost more than
-                      a decade of proper fluid conditioning. Prevention
-                      isn&apos;t just cheaper—it&apos;s smarter.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <div className="bg-white rounded-xl p-6 mb-8 flex items-center justify-center">
-                <Image
-                  src="/fluid-conditioning/hypro-compact-offline-filtration-unit.jpg"
-                  alt="Hy-Pro compact offline filtration unit"
-                  width={571}
-                  height={698}
-                  className="h-72 w-auto"
-                />
-              </div>
-              <p className="text-steel-500 text-sm text-center -mt-4 mb-8">
-                Hy-Pro compact offline filtration unit
-              </p>
-              <div className="bg-steel-900 border border-steel-700 rounded-xl p-8">
-                <h3 className="text-xl font-bold text-steel-100 mb-6">
-                  What Clean Fluid Delivers
-                </h3>
-                <div className="space-y-4">
-                  {benefits.map((benefit, index) => (
-                    <motion.div
-                      key={benefit}
-                      initial={{ opacity: 0, x: 20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.05 }}
-                      className="flex items-center space-x-3"
-                    >
-                      <CheckCircle className="h-5 w-5 text-accent-500 flex-shrink-0" />
-                      <span className="text-steel-300">{benefit}</span>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Rental Section */}
-      <section id="rental" className="py-20 bg-steel-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <div className="inline-flex items-center space-x-2 bg-accent-500/10 border border-accent-500/30 rounded-full px-4 py-2 mb-6">
-              <RefreshCw className="h-5 w-5 text-accent-500" />
-              <span className="text-accent-400 font-semibold text-sm">
-                Rental Available
-              </span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-steel-100 mb-4">
-              Why Buy When You Can Rent?
-            </h2>
-            <p className="text-steel-400 text-lg max-w-2xl mx-auto">
-              Not every facility needs to own conditioning equipment. Our rental
-              program gives you access to industrial-grade systems without the
-              capital investment.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {rentalEquipment.map((equipment, index) => {
-              const Icon = equipment.icon;
-              return (
-                <motion.div
-                  key={equipment.name}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-steel-800/50 border border-steel-700 rounded-xl p-8 hover:border-accent-500/50 transition-colors"
-                >
-                  <div className="p-4 bg-accent-500/10 border border-accent-500/20 rounded-xl inline-block mb-6">
-                    <Icon className="h-8 w-8 text-accent-500" />
-                  </div>
-                  <h3 className="text-xl font-bold text-steel-100 mb-3">
-                    {equipment.name}
-                  </h3>
-                  <p className="text-steel-400 leading-relaxed">
-                    {equipment.description}
-                  </p>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-12 bg-gradient-to-br from-steel-800 to-steel-900 border border-steel-700 rounded-xl p-8 lg:p-10"
-          >
-            <div className="grid lg:grid-cols-3 gap-8 items-center">
-              <div className="lg:col-span-2">
-                <h3 className="text-2xl font-bold text-steel-100 mb-4">
-                  Rental Program Benefits
-                </h3>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  {[
-                    "No capital investment required",
-                    "Flexible rental terms",
-                    "Full technical support included",
-                    "Delivery and setup available",
-                    "Training provided",
-                    "Upgrade options anytime",
-                  ].map((benefit) => (
-                    <div key={benefit} className="flex items-center space-x-3">
-                      <CheckCircle className="h-5 w-5 text-accent-500 flex-shrink-0" />
-                      <span className="text-steel-300 text-sm">{benefit}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="text-center lg:text-right">
-                <Link
-                  href="/#contact"
-                  className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-safety-600 to-safety-500 hover:from-safety-500 hover:to-safety-400 text-white rounded-lg font-semibold transition-all shadow-lg shadow-safety-500/25"
-                >
-                  Get Rental Quote
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </section>
 
@@ -455,6 +270,191 @@ export default function FluidConditioningPage() {
               </p>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Penny Wise Section */}
+      <section className="py-20 bg-steel-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="inline-flex items-center space-x-2 bg-accent-400/10 border border-accent-400/30 rounded-full px-4 py-2 mb-6">
+                <DollarSign className="h-5 w-5 text-accent-400" />
+                <span className="text-accent-400 font-semibold text-sm">
+                  The Economics
+                </span>
+              </div>
+
+              <h2 className="text-3xl sm:text-4xl font-bold text-steel-100 mb-6">
+                Penny Wise and{" "}
+                <span className="text-gradient">A Pound Foolish</span>
+              </h2>
+
+              <p className="text-steel-400 text-lg mb-6 leading-relaxed">
+                Here&apos;s the math that should keep maintenance managers up at
+                night: Filtration represents just 3% of total maintenance
+                costs—but contamination causes 85% of failures.
+              </p>
+
+              <p className="text-steel-300 text-lg mb-8 leading-relaxed">
+                Every dollar spent on proper fluid conditioning saves $10-15 in
+                repair costs, lost production, and premature component
+                replacement. The choice isn&apos;t whether you can afford proper
+                conditioning—it&apos;s whether you can afford not to.
+              </p>
+
+              <div className="bg-steel-800/50 border border-steel-700 rounded-xl p-6">
+                <div className="flex items-start space-x-4">
+                  <AlertTriangle className="h-6 w-6 text-accent-500 flex-shrink-0 mt-1" />
+                  <div>
+                    <h4 className="text-steel-100 font-semibold mb-2">
+                      The Hidden Cost
+                    </h4>
+                    <p className="text-steel-400 text-sm">
+                      A single contamination-related failure can cost more than
+                      a decade of proper fluid conditioning. Prevention
+                      isn&apos;t just cheaper—it&apos;s smarter.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="bg-white rounded-xl p-6 mb-8 flex items-center justify-center">
+                <Image
+                  src="/fluid-conditioning/hypro-compact-offline-filtration-unit.jpg"
+                  alt="Hy-Pro compact offline filtration unit"
+                  width={571}
+                  height={698}
+                  className="h-72 w-auto"
+                />
+              </div>
+              <p className="text-steel-500 text-sm text-center -mt-4 mb-8">
+                Hy-Pro compact offline filtration unit
+              </p>
+              <div className="bg-steel-800/50 border border-steel-700 rounded-xl p-8">
+                <h3 className="text-xl font-bold text-steel-100 mb-6">
+                  What Clean Fluid Delivers
+                </h3>
+                <div className="space-y-4">
+                  {benefits.map((benefit, index) => (
+                    <motion.div
+                      key={benefit}
+                      initial={{ opacity: 0, x: 20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.05 }}
+                      className="flex items-center space-x-3"
+                    >
+                      <CheckCircle className="h-5 w-5 text-accent-500 flex-shrink-0" />
+                      <span className="text-steel-300">{benefit}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Rental Section */}
+      <section id="rental" className="py-20 bg-steel-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <div className="inline-flex items-center space-x-2 bg-accent-500/10 border border-accent-500/30 rounded-full px-4 py-2 mb-6">
+              <RefreshCw className="h-5 w-5 text-accent-500" />
+              <span className="text-accent-400 font-semibold text-sm">
+                Rental Available
+              </span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-steel-100 mb-4">
+              Why Buy When You Can Rent?
+            </h2>
+            <p className="text-steel-400 text-lg max-w-2xl mx-auto">
+              Not every facility needs to own conditioning equipment. Our rental
+              program gives you access to industrial-grade systems without the
+              capital investment.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {rentalEquipment.map((equipment, index) => {
+              const Icon = equipment.icon;
+              return (
+                <motion.div
+                  key={equipment.name}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-steel-800/50 border border-steel-700 rounded-xl p-8 hover:border-accent-500/50 transition-colors"
+                >
+                  <div className="p-4 bg-accent-500/10 border border-accent-500/20 rounded-xl inline-block mb-6">
+                    <Icon className="h-8 w-8 text-accent-500" />
+                  </div>
+                  <h3 className="text-xl font-bold text-steel-100 mb-3">
+                    {equipment.name}
+                  </h3>
+                  <p className="text-steel-400 leading-relaxed">
+                    {equipment.description}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-12 bg-gradient-to-br from-steel-800 to-steel-900 border border-steel-700 rounded-xl p-8 lg:p-10"
+          >
+            <div className="grid lg:grid-cols-3 gap-8 items-center">
+              <div className="lg:col-span-2">
+                <h3 className="text-2xl font-bold text-steel-100 mb-4">
+                  Rental Program Benefits
+                </h3>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {[
+                    "No capital investment required",
+                    "Flexible rental terms",
+                    "Full technical support included",
+                    "Delivery and setup available",
+                    "Training provided",
+                    "Upgrade options anytime",
+                  ].map((benefit) => (
+                    <div key={benefit} className="flex items-center space-x-3">
+                      <CheckCircle className="h-5 w-5 text-accent-500 flex-shrink-0" />
+                      <span className="text-steel-300 text-sm">{benefit}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="text-center lg:text-right">
+                <Link
+                  href="/#contact"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-safety-600 to-safety-500 hover:from-safety-500 hover:to-safety-400 text-white rounded-lg font-semibold transition-all shadow-lg shadow-safety-500/25"
+                >
+                  Get Rental Quote
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
