@@ -9,9 +9,6 @@ import {
   DollarSign,
   ArrowRight,
   CheckCircle,
-  Filter,
-  Thermometer,
-  RefreshCw,
   Activity,
 } from "lucide-react";
 
@@ -30,27 +27,6 @@ const stats = [
     value: "3%",
     label: "of maintenance costs",
     description: "spent on filtration",
-  },
-];
-
-const rentalEquipment = [
-  {
-    name: "Vacuum Dehydrators",
-    description:
-      "Remove water contamination down to 50 PPM. Extend oil life by 3-5x.",
-    icon: Thermometer,
-  },
-  {
-    name: "Varnish Removal Systems",
-    description:
-      "Eliminate varnish deposits that clog valves and cause sticking.",
-    icon: Filter,
-  },
-  {
-    name: "Kidney Loop Filtration",
-    description:
-      "Continuous offline filtration to maintain fluid cleanliness.",
-    icon: RefreshCw,
   },
 ];
 
@@ -373,60 +349,12 @@ export default function FluidConditioningPage() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <div className="inline-flex items-center space-x-2 bg-accent-500/10 border border-accent-500/30 rounded-full px-4 py-2 mb-6">
-              <RefreshCw className="h-5 w-5 text-accent-500" />
-              <span className="text-accent-400 font-semibold text-sm">
-                Rental Available
-              </span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-steel-100 mb-4">
-              Why Buy When You Can Rent?
-            </h2>
-            <p className="text-steel-400 text-lg max-w-2xl mx-auto">
-              Not every facility needs to own conditioning equipment. Our rental
-              program gives you access to industrial-grade systems without the
-              capital investment.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {rentalEquipment.map((equipment, index) => {
-              const Icon = equipment.icon;
-              return (
-                <motion.div
-                  key={equipment.name}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-steel-800/50 border border-steel-700 rounded-xl p-8 hover:border-accent-500/50 transition-colors"
-                >
-                  <div className="p-4 bg-accent-500/10 border border-accent-500/20 rounded-xl inline-block mb-6">
-                    <Icon className="h-8 w-8 text-accent-500" />
-                  </div>
-                  <h3 className="text-xl font-bold text-steel-100 mb-3">
-                    {equipment.name}
-                  </h3>
-                  <p className="text-steel-400 leading-relaxed">
-                    {equipment.description}
-                  </p>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-12 bg-gradient-to-br from-steel-800 to-steel-900 border border-steel-700 rounded-xl p-8 lg:p-10"
+            className="bg-gradient-to-br from-steel-800 to-steel-900 border border-steel-700 rounded-xl p-8 lg:p-10"
           >
             <div className="grid lg:grid-cols-3 gap-8 items-center">
               <div className="lg:col-span-2">
                 <h3 className="text-2xl font-bold text-steel-100 mb-4">
-                  Rental Program Benefits
+                  Ask Us About Rentals
                 </h3>
                 <div className="grid sm:grid-cols-2 gap-4">
                   {[
