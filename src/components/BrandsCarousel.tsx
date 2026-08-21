@@ -84,17 +84,17 @@ export default function BrandsCarousel() {
               {brands.map((brand) => (
                 <div
                   key={brand.id}
-                  className="flex-[0_0_50%] sm:flex-[0_0_33.33%] md:flex-[0_0_25%] lg:flex-[0_0_16.66%] min-w-0 px-3"
+                  className="flex-[0_0_50%] sm:flex-[0_0_33.33%] md:flex-[0_0_25%] lg:flex-[0_0_20%] min-w-0 px-3"
                 >
                   <Link href={`/products/${brand.slug}`}>
-                    <div className="bg-gray-50 border border-gray-200 rounded-xl p-6 h-28 flex items-center justify-center hover:border-accent-400 hover:shadow-md transition-all">
+                    <div className="bg-gray-50 border border-gray-200 rounded-xl p-6 h-32 flex items-center justify-center hover:border-accent-400 hover:shadow-md transition-all">
                       {brand.logo_url ? (
                         <Image
                           src={brand.logo_url}
                           alt={brand.name}
-                          width={160}
-                          height={80}
-                          className="object-contain max-h-16"
+                          width={200}
+                          height={100}
+                          className="object-contain max-h-20"
                         />
                       ) : (
                         <span className="text-steel-500 font-medium text-sm">
