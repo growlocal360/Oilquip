@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Mail, Phone, MapPin } from "lucide-react";
+import FooterQuote from "@/components/FooterQuote";
 
 const services = [
   { name: "Design & Engineering", href: "/services/design-engineering" },
@@ -150,16 +151,7 @@ export default function Footer() {
       {/* Quote Section */}
       <div className="border-t border-steel-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <blockquote className="text-center">
-            <p className="text-steel-400 italic text-sm md:text-base max-w-3xl mx-auto">
-              &ldquo;What is a soul? It&apos;s like electricity — we don&apos;t
-              know really what it is, but it&apos;s a force that can light a
-              room&rdquo;
-            </p>
-            <cite className="block mt-3 text-steel-500 text-sm not-italic">
-              — Ray Charles
-            </cite>
-          </blockquote>
+          <FooterQuote />
         </div>
       </div>
 

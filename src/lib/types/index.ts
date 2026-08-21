@@ -4,3 +4,4 @@ export * from "./resources";
 export * from "./brands";
 export * from "./portal";
 export * from "./applications";
+export * from "./quotes";

@@ -12,6 +12,7 @@ import {
   Building2,
   Users,
   ExternalLink,
+  Quote,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -50,6 +51,11 @@ const navItems = [
     label: "Portal",
     href: "/admin/portal",
     icon: Users,
+  },
+  {
+    label: "Quotes",
+    href: "/admin/quotes",
+    icon: Quote,
   },
 ];
 
