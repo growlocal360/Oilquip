@@ -439,8 +439,8 @@ export default function DesignEngineeringPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="relative h-48 rounded-xl overflow-hidden">
                   <Image
-                    src="/design-engineering/custom-hydraulic-manifold-front.jpg"
-                    alt="Custom hydraulic manifold"
+                    src="/design-engineering/moog-modular-hydraulic-service-manifold.jpg"
+                    alt="Modular hydraulic service manifold"
                     fill
                     className="object-cover"
                   />
