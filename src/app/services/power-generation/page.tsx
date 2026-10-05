@@ -12,7 +12,17 @@ import {
   CheckCircle,
   AlertTriangle,
   Award,
+  Download,
 } from "lucide-react";
+
+const partnerLogos = [
+  { name: "Young & Franklin", src: "/power-generation/logos/young-and-franklin.png" },
+  { name: "Woodward", src: "/power-generation/logos/woodward.png" },
+  { name: "Miller Fluid Power", src: "/power-generation/logos/miller-fluid-power.png" },
+  { name: "Rexroth", src: "/power-generation/logos/rexroth.png" },
+  { name: "Mafag", src: "/power-generation/logos/mafag.png" },
+  { name: "Biffi", src: "/power-generation/logos/biffi.png" },
+];
 
 const exchangeProgram = [
   {
@@ -122,6 +132,14 @@ export default function PowerGenerationPage() {
               >
                 Emergency: (337) 433-3601
               </Link>
+              <a
+                href="/resources/brochures/oilquip-brochure-power-gen.pdf"
+                download
+                className="inline-flex items-center justify-center px-8 py-4 border-2 border-accent-500/50 hover:border-accent-400 text-accent-400 hover:text-accent-300 rounded-lg font-semibold transition-all"
+              >
+                <Download className="mr-2 h-5 w-5" />
+                Power Gen Brochure
+              </a>
             </div>
           </motion.div>
         </div>
@@ -176,6 +194,16 @@ export default function PowerGenerationPage() {
                     </p>
                   </div>
                 </div>
+              </div>
+
+              <div className="relative rounded-xl overflow-hidden border border-steel-700 mt-6">
+                <Image
+                  src="/power-generation/f1-pit-crew-actuator-exchange.jpg"
+                  alt="F1 pit crew swapping assemblies during a pit stop"
+                  width={1703}
+                  height={870}
+                  className="w-full h-auto"
+                />
               </div>
             </motion.div>
 
@@ -261,9 +289,44 @@ export default function PowerGenerationPage() {
                     in the United States
                   </p>
                 </div>
+                <div className="bg-white rounded-xl p-6 mt-6">
+                  <Image
+                    src="/power-generation/servo-actuator-exchange-units.jpg"
+                    alt="Remanufactured servo actuator exchange units"
+                    width={611}
+                    height={446}
+                    className="w-full h-auto"
+                  />
+                </div>
+                <p className="text-steel-500 text-sm mt-3">
+                  Factory-certified actuator exchange units
+                </p>
               </div>
             </div>
           </motion.div>
+
+          {/* Partner Brands Banner */}
+          <div className="mt-12">
+            <p className="text-center text-steel-500 text-sm uppercase tracking-wider font-semibold mb-6">
+              Power Generation Brands We Support
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+              {partnerLogos.map((logo) => (
+                <div
+                  key={logo.name}
+                  className="bg-white rounded-xl h-24 p-4 flex items-center justify-center"
+                >
+                  <Image
+                    src={logo.src}
+                    alt={logo.name}
+                    width={200}
+                    height={100}
+                    className="max-h-14 w-auto object-contain"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -315,8 +378,17 @@ export default function PowerGenerationPage() {
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-steel-800/50 border border-steel-700 rounded-xl p-8"
             >
+              <div className="relative rounded-xl overflow-hidden border border-steel-700 mb-8">
+                <Image
+                  src="/power-generation/turbine-retrofit-before-after.jpg"
+                  alt="Turbine before and after retrofit"
+                  width={720}
+                  height={694}
+                  className="w-full h-auto"
+                />
+              </div>
+              <div className="bg-steel-800/50 border border-steel-700 rounded-xl p-8">
               <h3 className="text-xl font-bold text-steel-100 mb-6">
                 Why Upgrade?
               </h3>
@@ -364,7 +436,21 @@ export default function PowerGenerationPage() {
                   </div>
                 </div>
               </div>
+              </div>
             </motion.div>
+          </div>
+
+          <div className="relative rounded-xl overflow-hidden border border-steel-700 mt-16 h-64 lg:h-80">
+            <Image
+              src="/power-generation/in-house-machining-oilquip.jpg"
+              alt="In-house machining at Oilquip"
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-steel-950/80 via-transparent to-transparent" />
+            <p className="absolute bottom-4 left-6 text-steel-200 font-semibold">
+              Full in-house machining and repair capabilities
+            </p>
           </div>
         </div>
       </section>
