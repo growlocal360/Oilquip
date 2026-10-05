@@ -8,33 +8,89 @@ import {
   Shield,
   CheckCircle,
   ArrowRight,
-  Settings,
-  Gauge,
-  Box,
-  Layers,
 } from "lucide-react";
+
+// ISO 1219 hydraulic schematic symbols
+const CylinderSymbol = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    className={className}
+  >
+    <rect x="2" y="8" width="13" height="8" />
+    <line x1="6.5" y1="8" x2="6.5" y2="16" />
+    <line x1="6.5" y1="12" x2="22" y2="12" />
+  </svg>
+);
+
+const PumpMotorSymbol = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    className={className}
+  >
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 3.5 L8.5 9 L15.5 9 Z" fill="currentColor" stroke="none" />
+    <path d="M12 20.5 L8.5 15 L15.5 15 Z" fill="currentColor" stroke="none" />
+  </svg>
+);
+
+const ServoValveSymbol = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    className={className}
+  >
+    <rect x="2.5" y="8" width="9.5" height="8" />
+    <rect x="12" y="8" width="9.5" height="8" />
+    <line x1="5.5" y1="15" x2="9.5" y2="9" />
+    <path d="M9.5 9 l-2.2 0.4 M9.5 9 l-0.4 2.2" />
+    <line x1="18.5" y1="15" x2="14.5" y2="9" />
+    <path d="M14.5 9 l2.2 0.4 M14.5 9 l0.4 2.2" />
+  </svg>
+);
+
+const AccumulatorSymbol = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    className={className}
+  >
+    <rect x="8" y="2.5" width="8" height="19" rx="4" />
+    <path d="M8 12 Q12 9.5 16 12" />
+    <path d="M12 5 L10.2 7.8 L13.8 7.8 Z" fill="currentColor" stroke="none" />
+  </svg>
+);
 
 const services = [
   {
-    icon: Gauge,
+    icon: CylinderSymbol,
     name: "Cylinders",
     description:
       "Complete cylinder repair including rod straightening, barrel honing, seal replacement, and pressure testing.",
   },
   {
-    icon: Settings,
-    name: "Pumps",
+    icon: PumpMotorSymbol,
+    name: "Pump / Motors",
     description:
-      "Vane, piston, and gear pump repairs. Full disassembly, inspection, and rebuild to OEM specifications.",
+      "Vane, piston, and gear pump and motor repairs. Full disassembly, inspection, and rebuild to OEM specifications.",
   },
   {
-    icon: Layers,
+    icon: ServoValveSymbol,
     name: "Servo Valves",
     description:
       "Precision servo valve cleaning, calibration, and repair. Flow testing and documentation included.",
   },
   {
-    icon: Box,
+    icon: AccumulatorSymbol,
     name: "Accumulators",
     description:
       "Bladder, piston, and diaphragm accumulator service. Pressure testing and certification.",
@@ -55,7 +111,7 @@ const guarantees = [
   {
     title: "Full Documentation",
     description:
-      "Complete test reports, before/after photos, and certification documents with every repair.",
+      "Complete test reports, before/after photos, and certification documentation available upon request",
   },
   {
     title: "Fast Turnaround",
