@@ -96,24 +96,40 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-6 text-steel-300 text-lg leading-relaxed">
                 <p>
-                  Oilquip was founded in 1960 in Lake Charles, Louisiana — right
-                  in the heart of the petrochemical corridor. What started as a
-                  small fluid power distribution company has grown into a
-                  full-service engineering and solutions provider trusted by the
-                  biggest names in energy, manufacturing, and power generation.
+                  Since 1960, Oilquip has been solving tough fluid power
+                  problems for the industries that keep things moving.
                 </p>
                 <p>
-                  We are not just in the fluid power business; we are in the{" "}
+                  But the truth is, we&apos;ve never thought of ourselves as
+                  just a fluid power company. We&apos;re in the{" "}
                   <span className="text-steel-100 font-semibold">
-                    &ldquo;getting stuff done, It&apos;s My Job&rdquo;
+                    getting-stuff-done business
+                  </span>
+                  . When something breaks, a job gets complicated, or the answer
+                  isn&apos;t sitting in a catalog, we roll up our sleeves,
+                  figure it out, and take ownership of it. Around here,{" "}
+                  <span className="text-steel-100 font-semibold">
+                    &ldquo;It&apos;s my job&rdquo;
                   </span>{" "}
-                  business. That means we don&apos;t pass the buck, we don&apos;t
-                  make excuses, and we don&apos;t quit until the job is done right.
+                  still means something.
                 </p>
                 <p>
-                  While the technology has evolved over six decades — from analog
-                  gauges to PLC-integrated smart systems — our values remain
-                  constant. We roll up our sleeves. We take ownership. We deliver.
+                  We&apos;re a proud Louisiana company and a family business.
+                  Always have been, always will be. That means showing up early,
+                  doing what we say we&apos;re going to do, and earning our
+                  customers&apos; business every day. We know we&apos;re owed
+                  nothing. Our customers have choices, and we never forget that
+                  they&apos;re the reason we&apos;re here.
+                </p>
+                <p>
+                  A lot has changed since 1960. The equipment is smarter, the
+                  technology is better, and the problems we&apos;re asked to
+                  solve have become more complex. We&apos;ve changed with it.
+                </p>
+                <p>
+                  What hasn&apos;t changed is how we work: take care of the
+                  customer, own the problem, find a solution, and get the job
+                  done.
                 </p>
               </div>
             </motion.div>
