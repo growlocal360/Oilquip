@@ -48,11 +48,8 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6"
           >
-            <span className="text-gradient">Rooted in Resolve:</span>
-            <br />
-            <span className="text-steel-100">
-              A legacy of turning fluid power into precision,{" "}
-              <span className="text-steel-300">motion into mastery.</span>
+            <span className="text-gradient">
+              Because Guessing Ain&apos;t Engineering.
             </span>
           </motion.h1>
 
@@ -63,8 +60,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl text-steel-300 mb-10 leading-relaxed"
           >
-            Incorporated in 1960. We don&apos;t just move boxes; we solve the
-            industry&apos;s most complicated fluid power problems.
+            Solving the fluid power problems others can&apos;t. Since 1960.
           </motion.p>
 
           {/* CTA Buttons */}

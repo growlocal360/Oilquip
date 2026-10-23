@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Oilquip, Inc. | Rooted in Resolve - Fluid Power Solutions Since 1960",
+  title: "Oilquip, Inc. | Because Guessing Ain't Engineering - Fluid Power Solutions Since 1960",
   description:
     "Oilquip is a fluid power distributor and engineering firm established in 1960. Moog authorized integrator specializing in design & engineering, power generation, fluid conditioning, and repairs.",
   keywords: [
@@ -27,9 +27,9 @@ export const metadata: Metadata = {
     "fluid conditioning",
   ],
   openGraph: {
-    title: "Oilquip, Inc. | Rooted in Resolve",
+    title: "Oilquip, Inc. | Because Guessing Ain't Engineering",
     description:
-      "A legacy of turning fluid power into precision, motion into mastery. Since 1960.",
+      "Solving the fluid power problems others can't. Since 1960.",
     type: "website",
     locale: "en_US",
   },

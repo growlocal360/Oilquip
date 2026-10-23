@@ -104,7 +104,7 @@ export default function About() {
                   </div>
                   <div className="mt-4 pt-4 border-t border-steel-700">
                     <p className="text-steel-400 text-sm italic">
-                      &ldquo;Rooted in Resolve&rdquo;
+                      &ldquo;Because Guessing Ain&apos;t Engineering&rdquo;
                     </p>
                   </div>
                 </div>

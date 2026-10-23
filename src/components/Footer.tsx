@@ -47,8 +47,8 @@ export default function Footer() {
               />
             </Link>
             <p className="text-steel-400 text-sm leading-relaxed mb-6">
-              Rooted in Resolve. A legacy of turning fluid power into precision,
-              motion into mastery.
+              Because Guessing Ain&apos;t Engineering. Solving the fluid power
+              problems others can&apos;t. Since 1960.
             </p>
             <div className="flex items-center space-x-2 text-steel-400 text-sm">
               <span className="inline-block w-2 h-2 bg-accent-500 rounded-full animate-pulse" />
