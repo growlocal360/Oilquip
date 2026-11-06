@@ -27,26 +27,19 @@ export default function About() {
               The Oilquip Story
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-steel-100 mb-6 leading-tight">
-              Since 1960, we&apos;ve been{" "}
-              <span className="text-gradient">quietly solving problems.</span>
+              We Don&apos;t Sell Answers.{" "}
+              <span className="text-gradient">We Find Them.</span>
             </h2>
             <div className="space-y-6 text-steel-300 text-lg leading-relaxed">
               <p>
-                We are a family business driven by a{" "}
-                <span className="text-accent-400 font-semibold">
-                  &ldquo;Cajun spirit&rdquo;
-                </span>{" "}
-                that sees what others can&apos;t. We are not just in the fluid
-                power business; we are in the{" "}
-                <span className="text-steel-100 font-semibold">
-                  &ldquo;getting stuff done, It&apos;s My Job&rdquo;
-                </span>{" "}
-                business.
+                Since 1960, Oilquip has been solving tough fluid power problems
+                for the industries that keep things moving.
               </p>
               <p>
-                While the technology has evolved over six decades, our values
-                remain constant. We roll up our sleeves. We don&apos;t make
-                excuses. We get it done.
+                We&apos;re a family business of people who understand machinery
+                because we work on it. We design, machine, build, test,
+                troubleshoot, and turn wrenches. And when something
+                doesn&apos;t work the way it should, we want to know why.
               </p>
             </div>
 
